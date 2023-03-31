@@ -1,0 +1,8 @@
+# Memory Buffer
+Um buffer de memória é uma região de memória que é usada para armazenar temporariamente dados enquanto eles são transferidos entre dois dispositivos ou processos que operam em diferentes velocidades. Por exemplo, quando um dispositivo de entrada como um teclado é usado para inserir dados em um computador, o dispositivo envia os dados em pequenos pacotes para um buffer de memória na memória RAM do computador. Em seguida, o software do sistema operacional lê os dados do buffer e os transfere para um aplicativo que está em execução.
+
+O buffer de memória é usado para ajudar a alinhar as velocidades de entrada e saída, permitindo que os dados sejam armazenados temporariamente enquanto aguardam a transferência. Isso é especialmente útil quando os dispositivos ou processos que operam em diferentes velocidades, pois o buffer pode permitir que o dispositivo mais lento continue a enviar dados para o buffer enquanto o dispositivo mais rápido processa os dados já armazenados no buffer.
+
+Um exemplo comum de uso de buffer de memória é quando você está assistindo a um vídeo on-line. O vídeo é baixado para o buffer de memória antes de começar a ser reproduzido. Isso permite que o vídeo seja reproduzido suavemente, sem interrupções ou pausas, mesmo que a conexão com a internet não seja rápida o suficiente para reproduzir o vídeo em tempo real.
+
+Em resumo, o buffer de memória é um espaço temporário de armazenamento de dados que ajuda a evitar atrasos ou interrupções durante a transferência ou processamento de dados.

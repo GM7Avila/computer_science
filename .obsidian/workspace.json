@@ -1,0 +1,151 @@
+{
+  "main": {
+    "id": "2cb1ad94265a5816",
+    "type": "split",
+    "children": [
+      {
+        "id": "70691071f415c9cd",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "fe2be93f23c56c60",
+            "type": "leaf",
+            "state": {
+              "type": "image",
+              "state": {
+                "file": "images/Pasted image 20220930232233.png"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "0c9b6d8f6161011d",
+    "type": "split",
+    "children": [
+      {
+        "id": "4bb22c9c7211db7d",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a51300a7c2a606d4",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "42756605c372ff5c",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "b00694bc8f05fc40",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "85269bfd77f0e8a9",
+    "type": "split",
+    "children": [
+      {
+        "id": "5217c2375d667ba8",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "1e8f3f978b85468a",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "images/Pasted image 20220930232233.png",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "ff2fe1028b4118a7",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "images/Pasted image 20220930232233.png",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "4a02405f48bffa60",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "6d49b552225948f5",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "images/Pasted image 20220930232233.png"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "ribbon": {
+    "mostRecentAction": ""
+  },
+  "active": "fe2be93f23c56c60",
+  "lastOpenFiles": [
+    "images/Pasted image 20220930232249.png",
+    "Introdução/Introdução.md",
+    "Ling. Formais e Autômatos/AFD.md",
+    "Ling. Formais e Autômatos/Autômato Finito.md",
+    "Ling. Formais e Autômatos/Linguagem.md",
+    "Ling. Formais e Autômatos/Linguagens Regulares.md",
+    "AF.md",
+    "Linguagem.md"
+  ]
+}
