@@ -1,0 +1,8 @@
+# Microcontroladores
+
+Microcontroladores são pequenos computadores em um único chip, que contêm um processador, memória, interfaces de entrada/saída (I/O) e outros componentes. Eles são projetados para executar tarefas específicas em sistemas embarcados, como em equipamentos eletrônicos, automação industrial, sistemas de controle, entre outros. Os microcontroladores são programados para realizar tarefas específicas e podem ser encontrados em diversos dispositivos, desde controles remotos até robôs industriais. Eles são conhecidos por sua eficiência em termos de custo e tamanho, além de serem capazes de operar com baixo consumo de energia.
+
+Exemplo: Arduino.
+
+## Microprocessador x Microcontrolador
+O microprocessador é um chip que contém uma unidade central de processamento (CPU), que executa instruções armazenadas na memória, e outros componentes básicos para o funcionamento de um computador. Já o microcontrolador é um chip que combina um microprocessador com outros componentes, como memória, portas de entrada e saída, conversores analógico-digital e timers, em um único circuito integrado. O microcontrolador é geralmente usado em sistemas embarcados, onde é necessário controlar dispositivos físicos, como sensores, motores e dispositivos de automação. Enquanto um microprocessador é mais geral e pode ser usado em uma variedade de aplicativos, um microcontrolador é projetado para um aplicativo específico e pode ser programado para realizar tarefas específicas com maior eficiência.

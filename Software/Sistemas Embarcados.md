@@ -1,0 +1,3 @@
+# Sistema Embarcado
+
+Sistemas embarcados são sistemas computacionais integrados em um dispositivo maior para realizar funções específicas, muitas vezes em tempo real e sem intervenção humana. Esses sistemas geralmente contêm hardware e software projetados especificamente para trabalhar juntos de forma otimizada e eficiente. Eles podem ser encontrados em uma ampla variedade de aplicações, desde sistemas de navegação em automóveis e aviões, dispositivos médicos, eletrônicos de consumo, até em sistemas industriais e de automação residencial. Esses sistemas geralmente têm restrições de energia, tamanho, desempenho e custo que precisam ser levadas em consideração durante o projeto.

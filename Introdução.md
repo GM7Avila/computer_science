@@ -33,4 +33,4 @@ Essas áreas são **interligadas** pela questão:
 	- Um ***exemplo*** é o **problema de fatoração de números grandes**
 		- ***Nem mesmo um supercomputador pode encontrar o todos os fatores de um número grande (> 500 dígitos) antes do sol se apagar*** 
 		- Por isso é importante saber se um problema é complexo (assim sabemos as técnicas que serão necessárias, eurísticas e aproximações para resolver o problema; assim como existem áreas da computação em que é "bom" um problema ser complexo, como Criptgorafia.
-		
+	- Leia sobre: [[ComputingTheory/TOC/Complexidade de Algoritmos||Complexidade de Algoritmos]]

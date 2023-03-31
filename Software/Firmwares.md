@@ -1,0 +1,5 @@
+# Firmwares
+
+Firmware é um tipo de software que é incorporado permanentemente em um dispositivo de hardware, como um microcontrolador, placa-mãe, roteador, câmera digital, entre outros. Ele é projetado para realizar funções específicas e é armazenado na memória ROM (Read-Only Memory) ou na memória flash do dispositivo. Ao contrário do software convencional, que pode ser alterado facilmente por um usuário, o firmware é mais difícil de ser modificado e só pode ser atualizado por meio de procedimentos específicos.
+
+Os firmwares são responsáveis por controlar as funções de hardware dos dispositivos e permitir a sua interação com o software. Por exemplo, um firmware em um roteador controla o tráfego de dados da rede, enquanto um firmware em uma câmera digital controla a captura de imagens e o armazenamento em cartões de memória. Eles são importantes para garantir o funcionamento correto e eficiente dos dispositivos, e muitas vezes são atualizados para corrigir problemas de segurança ou adicionar novos recursos.
