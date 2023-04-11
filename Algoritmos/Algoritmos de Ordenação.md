@@ -63,6 +63,33 @@ def selection_sort(lista):
 			aux = lista[j]
 			lista[j] = lista[min_index]
 			lista[min_index] = aux
-
 ```
 
+## Insertion Sort
+- Ordenação de cartas.
+- Divide o array em dois - parte ordenada e parte não ordenada.
+- A ideia básica é percorrer o vetor de dados várias vezes, e em cada passagem, comparar um item com os itens que o precedem na lista. Se o item for menor do que o item anterior, troca-os de posição. O processo é repetido até que todo o vetor esteja ordenado.
+- A implementação do Insertion Sort começa com o primeiro item da lista considerado ordenado. O próximo item é então tomado e comparado com os itens que o precedem na lista. Se o item é maior do que o item anterior, ele é considerado em sua posição correta e o próximo item é tomado. Se o item é menor do que o item anterior, ele é movido para a posição correta na lista ordenada. Esse processo é repetido até que todos os itens tenham sido classificados.
+- Embora o Insertion Sort não seja tão eficiente quanto alguns outros algoritmos de ordenação, ele tem a vantagem de ser fácil de entender e implementar, e funciona bem em pequenas listas ou quando a lista já está quase ordenada.
+
+```cpp
+#include <iostream>
+using namespace std;
+
+void insertionSort(int arr[], int n) {
+	int i, key, j;
+	for (i = 1; i < n; i++) {
+		key = arr[i];
+		j = i - 1;
+			   
+		/* Move os elementos do array que são maiores que a chave,
+		para uma posição à frente de sua posição atual */
+		       
+		while (j >= 0 && arr[j] > key) {
+			arr[j + 1] = arr[j];
+			j = j - 1;
+		}
+	    arr[j + 1] = key;
+	}
+}
+```
