@@ -82,7 +82,7 @@ Então, para calcular a complexidade de um algoritmo usando a notação big O, v
 Em resumo, a notação big O é uma forma de descrever a complexidade de um algoritmo em termos de como ele se comporta em relação ao tamanho do problema. A complexidade pode ser expressa como uma função matemática que representa o tempo de execução do algoritmo em relação ao tamanho do problema.
 
 ### Exemplo 1
-Vamos utilizar como exemplo o seguinte algoritmo de [[Algoritmos de Busca|busca simples]] em [[Java]], que recebe como entrada um array de inteiros e um número inteiro a ser buscado, e retorna a posição em que o número foi encontrado, ou -1 caso contrário:
+Vamos utilizar como exemplo o seguinte algoritmo de [[Algoritmos de Busca|busca simples]] em [[backend/JAVA/README]], que recebe como entrada um array de inteiros e um número inteiro a ser buscado, e retorna a posição em que o número foi encontrado, ou -1 caso contrário:
 
 ```JAVA
 public static int buscaSimples(int[] arr, int x) {

@@ -1,4 +1,5 @@
 # Teoria da Computação 🤖
+#ComputingTheory 
 
 Este repositório contém diversos recursos durante meu estudo de Ciência da Computação, a respeito de *Teoria da Computação*. Aqui você encontrará materiais e resumos feitos por mim e materias de estudo que me ajudaram a coomprender e aprofundar conceitos de computação.
 

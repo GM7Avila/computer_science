@@ -1,4 +1,6 @@
 # Autômatos, Computabilidade e Complexidade
+#ComputingTheory #TOC
+
 ## Teoria da Computação
 
 A **Teoria da Computação** é composta de três partes centrais:

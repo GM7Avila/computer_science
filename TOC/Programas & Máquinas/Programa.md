@@ -104,7 +104,7 @@ Se `n` for menor ou igual a 1, a função retorna 1 (caso base da recursão). Ca
 O processo recursivo continua até chegar no caso base, quando a função começa a retornar os resultados e desempilhar as chamadas da pilha de execução.
 
 #### pilha
-No caso de funções recursivas, a [[Pilha|pilha]] de execução é usada para manter o controle do fluxo de execução da função. Quando uma função é chamada, uma nova entrada é adicionada à pilha de execução, que contém informações como o endereço de retorno e os valores dos parâmetros da função.
+No caso de funções recursivas, a [[backend/JS/notes/Pilha|pilha]] de execução é usada para manter o controle do fluxo de execução da função. Quando uma função é chamada, uma nova entrada é adicionada à pilha de execução, que contém informações como o endereço de retorno e os valores dos parâmetros da função.
 
 No caso da função fatorial, cada chamada recursiva adiciona uma nova entrada à pilha de execução. Quando a função atinge o caso base (n <= 1), ela começa a retornar os resultados e desempilhar as chamadas da pilha de execução.
 

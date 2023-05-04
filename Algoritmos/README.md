@@ -1,4 +1,5 @@
 # Estudo de Algoritmos
+#ComputingTheory #Algoritmos
 
 Aqui estão minhas anotações de estudo sobre algoritmos, que é uma parte fundamental da ciência da computação e desenvolvimento de software. 
 
@@ -12,8 +13,8 @@ A compreensão de algoritmos é essencial para a resolução de problemas comple
 
 Neste repositório, você encontrará anotações e materiais de estudo para algoritmos estudados em Algoritmos I e Algoritmos II, que incluem:
 
--   Algoritmos de busca: busca sequencial, busca binária.
--   Algoritmos de ordenação: bubble sort, selection sort, insertion sort, merge sort, quick sort.
+-   [[Algoritmos de Busca]]: busca linear, busca binária.
+-   [[Algoritmos de Ordenação]]: bubble sort, selection sort, insertion sort, merge sort, quick sort.
 -   Algoritmos de grafos: busca em largura, busca em profundidade, Dijkstra, Kruskal, Prim.
 -   Algoritmos de árvores: árvore binária, árvore de busca binária, árvore rubro-negra, heap.
 -   Algoritmos de strings: força bruta, Boyer-Moore, KMP.
