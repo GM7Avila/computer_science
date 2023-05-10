@@ -9,6 +9,9 @@ Estruturas de Dados são formas organizadas de armazenar e gerenciar dados em um
 
 O conhecimento de Estrutura de Dados é essencial para a resolução de problemas complexos e para o desenvolvimento de software. Além disso, o conhecimento de Estrutura de Dados é comumente testado em entrevistas técnicas e programação competitiva.
 
+## Tipos de Dados Abstratos (ADT)
+- ADT é um tipo de dado que implementa objetos cujo comportamento é definido por um conjunto de valores e operações.
+
 ## Estruturas de Dados estudadas
 
 Neste repositório, você encontrará anotações e materiais de estudo para Estruturas de Dados estudadas em Estrutura de Dados I e Estrutura de Dados II, que incluem:
