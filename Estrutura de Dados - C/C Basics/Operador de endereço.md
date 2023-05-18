@@ -23,3 +23,21 @@ Existem dois tipos principais de operadores de endereço em C e C++:
     Nesse exemplo, `*ptr` retorna o valor armazenado na variável `x`, que é atribuído à variável `valor`.
     
 Os operadores de endereço são muito úteis em programação, especialmente quando trabalhamos com estruturas de dados complexas, como matrizes, listas encadeadas e árvores. Eles permitem que criemos ponteiros para variáveis e objetos e acessemos seus valores e estruturas de forma eficiente e flexível.
+
+---
+
+## Operador de Endereço em C
+
+Em C, o operador `&` é chamado de operador de endereço e é usado para obter o endereço de uma variável na memória. Quando usamos o operador `&` em uma variável, ele retorna o endereço de memória da variável. Por exemplo, se tivermos a seguinte declaração de variável:
+
+``` C
+int a = 10;
+```
+
+Podemos usar o operador `&` para obter o endereço de `a` na memória:
+
+```C
+printf("%p", &a);
+```
+
+O código acima imprimirá o endereço de `a` na memória em hexadecimal. O operador `&` é frequentemente usado em conjunto com ponteiros em C, para passar endereços de memória como parâmetros para funções, ou para armazenar endereços de memória em ponteiros.
