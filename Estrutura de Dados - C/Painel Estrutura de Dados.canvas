@@ -1,7 +1,7 @@
 {
 	"nodes":[
 		{"id":"ac2001b9dd3221d9","x":787,"y":-1082,"width":365,"height":51,"type":"text","text":"# ESTRUTURA DE DADOS I"},
-		{"id":"dadab87c8853f32a","x":-245,"y":-690,"width":574,"height":622,"type":"file","file":"ComputingTheory/Estrutura de Dados - C/Estrutura de Dados I/Variáveis e Memória RAM.md"},
+		{"id":"dadab87c8853f32a","x":-245,"y":-690,"width":574,"height":622,"type":"file","file":"ComputingTheory/Estrutura de Dados - C/C Basics/Variáveis e Memória RAM.md"},
 		{"id":"933a0663c7e10a08","x":562,"y":-720,"width":250,"height":60,"type":"text","text":"Como são alocadas variáveis na memória na Linguagem C?"}
 	],
 	"edges":[
