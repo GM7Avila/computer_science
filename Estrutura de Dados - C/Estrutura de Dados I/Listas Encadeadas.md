@@ -1,4 +1,4 @@
-# Lista Encadeada Simples
+# Lista Encadeada 
 
 ## Motivação - Um problema em arrays
 - Suponha que queremos armazenar uma lista de alunos em um vetor/array;
@@ -19,7 +19,7 @@ for(int i=0; i<5; i++){
 	- Opção 2: Criar um novo vetor com 6 posições e copiar os dados (a cada novo aluno, precisamos alocar um novo vetor, copiar os dados de um vetor a outro é algo ineficiente);
 	- Opção 3: Criar um vetor muito grande, com muitas posições, de modo que "sempre" teremos espaço para inserir um novo aluno (problema: deslocamento dos elementos);
 
-- A melhor implementação para isso, é utilizar uma **lista encadeada**
+- A melhor implementação para isso, é utilizar uma **lista encadeada**:
 
 ## Lista Encadeada
 - Uma lista encadeada é uma representação de uma **sequência de elementos/objetos** na memória do computador;
@@ -43,3 +43,53 @@ for(int i=0; i<5; i++){
 - Lista duplamente encadeada circular: 
 
 ![[Pasted image 20230610002521.png]]
+
+## Lista Encadeada Simples
+- Próximo elemento após o último elemento da lista é `NULL`;
+- Se o ponteiro L aponta para o **primeiro nó da Lista**, podemos dizer que **L é uma Lista**.
+```C
+typedef struct node {
+	int value;
+	struct node *next;
+} Node;
+```
+
+**Outra implementação**
+- Temos um **Tipo próprio** para a Lista, que gardará um ponteiro para seu início;
+- Este novo tipo nos dá liberdade para **guardarmos outras informações**, como número de nós da Lista, outros ponteiros, etc;
+- Com isso, podemos **otimizar** algumas operações comuns de Listas encadeadas;
+- Esta solução é parecida com a Lista Encadeada **com Cabeça** porém ==mais robusta==.
+
+![[Pasted image 20230610113727.png]]
+
+- Estrutura de Lista Encadeada:
+```C
+typedef struct _linked_list {
+	Node *begin;
+	// pode implementar mais campos para futuras implementações
+} LinkedList;
+```
+
+- Criando as funções de operação de uma lista encadeada:
+	- `create_linkedList()` cria uma lista encadeada, retornando um ponteiro de lista `L`;
+	- ``create_node(int val)`` cria um nó de uma lista encadeada, passando um valor inteiro `val` para o nó, e em seguida retornando o ponteiro de nó `N`.
+
+```C
+LinkedList *create_linkedList(){
+    LinkedList *L = (LinkedList *) calloc(1, sizeof(LinkedList));
+    L->begin = NULL;
+    
+    return L;
+}
+```
+
+```C
+Node *create_node(int val){
+    Node *N = (Node *) calloc(1, sizeof(Node));
+    N->value = val;
+    N->next = NULL;
+
+    return N;
+}
+```
+
