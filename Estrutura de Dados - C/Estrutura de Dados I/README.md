@@ -26,3 +26,16 @@ Neste repositório, você encontrará anotações e materiais de estudo para Est
 Contribuições são sempre bem-vindas para aprimorar o conteúdo deste repositório. Se você deseja adicionar uma nova estrutura de dados, melhorar uma anotação existente ou corrigir um erro, sinta-se à vontade para fazer um fork deste repositório e enviar um pull request.
 
 Este repositório ainda está em construção, então novas anotações e estruturas de dados serão adicionadas ao longo do tempo.
+
+# Sumário
+
+## Estrutura de Dados 1
+- [[Variáveis e Memória RAM]]
+- [[Funcionamento dos Ponteiros]]
+- [[Tipos de Alocação de Memória]]
+- [[Estrutura Pilha (Stack)]]
+- [[Matrizes]]
+- [[Matrizes Dinâmicas]]
+- [[Struct]]
+- [[Fila]]
+- [[Listas Encadeadas]]

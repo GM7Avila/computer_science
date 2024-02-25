@@ -1,4 +1,4 @@
-# Random Acess Memory
+# Random Access Memory
 
 A memória RAM (Random Access Memory) é uma forma de armazenamento de **dados temporários** que é usada pelo computador para acessar informações rapidamente enquanto ele está em operação. A RAM é um componente essencial do computador, pois permite que o processador acesse e leia ou escreva dados rapidamente.
 

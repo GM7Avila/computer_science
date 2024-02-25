@@ -93,3 +93,14 @@ Node *create_node(int val){
 }
 ```
 
+## Quando usar cada uma?
+
+1. Lista Encadeada Simples
+	- Inserções e remoções eficientes no início/final da lista, **sem necessidade de acesso direto aos elementos em posição intermediária**;
+	- **Tamanho da lista** vairiavel;
+2. Lista Duplamente Encadeada
+	- Acesso eficiente tanto para o próximo quanto ao elemento anterior.
+	- Travessia da lista em ambas as direções.
+	- **Algoritmos de iteração bidirecional**, como em editores de texto ou navegadores de histórico.
+3. Lista Encadeada Circular
+	- Estrutura de dados cíclica, como fila circular, lista de reprodução de música (que deve continuar tocando uma música após a última);

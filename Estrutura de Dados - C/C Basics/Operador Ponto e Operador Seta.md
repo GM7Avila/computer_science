@@ -42,4 +42,4 @@ int main(){
 }
 ```
 
-- Note: ``*(p)`` é o conteúdo do ponteiro, então  ``*(&rgFilho)``, logo ``rgFilho``. 
+- Note: ``*(p)`` é o conteúdo do ponteiro, então  ``*(&rgFilho)``, logo ``rgFilho``.
