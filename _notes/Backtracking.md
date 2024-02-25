@@ -1,4 +1,5 @@
 # Backtracking
+
 Backtracking é uma técnica de programação usada para encontrar todas as soluções possíveis para um problema. Ela consiste em uma busca exaustiva por todas as combinações possíveis de soluções e é frequentemente usada em problemas de otimização, jogos, algoritmos de busca e outros.
 
 A técnica de backtracking usa uma estrutura de dados em pilha para armazenar informações sobre as soluções parciais já exploradas e, assim, permitir a retroceder (backtrack) e explorar outras possibilidades. A pilha é usada para manter um registro dos estados anteriores e, assim, permitir que o algoritmo retorne a um estado anterior e tente uma nova solução.

@@ -1,4 +1,4 @@
-# 📈 Complexidade de Algoritmos
+# Complexidade de Algoritmos
 - Analisar a quantidade de iterações que o código leva do início ao fim analisando seu pior caso possível.
 ![[Pasted image 20230502185851.png]]
 
