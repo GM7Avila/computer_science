@@ -2,8 +2,8 @@
 
 ## Resumo
 
-> <span style="font-style: italic; font-size:20px; font-family: Georgia, serif; color: #7baf56">"Um modem é um dispositivo que modula um sinal analógico em dados digitais e vice-versa (demodulação). </span>
-
+> <span style="font-style: italic; font-size:20px; font-family: Georgia, serif; color: #7baf56">"Um modem é um dispositivo que modula um sinal analógico em dados digitais e vice-versa (demodulação).</span>
+ 
 - **YouTube: Behfor - WHAT IS A MODEM? [KB Ep 1]** 
 ![](https://www.youtube.com/watch?v=i85U1QWQhdM)
 ## Definição

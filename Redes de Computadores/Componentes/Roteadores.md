@@ -1,5 +1,7 @@
 # Roteadores
 
+> <span style="font-style: italic; font-size:20px; font-family: Georgia, serif; color: #7baf56">"O roteador recebe o ponto de rede do provedor e distribui o acesso à internet para os dispositivos da rede. Ele faz parte da camada 3 do modelo OSI.</span> 
+
 ## Definição
 - Dispositivo que distribui o ponto de rede - **Camada 3 : Rede**.
 - O roteador é o segundo dispositivo no fluxo da internet, vindo logo após o processo de modularização feito pelo [[Modem|modem]]. 

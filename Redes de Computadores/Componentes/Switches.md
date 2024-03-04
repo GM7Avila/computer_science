@@ -1,4 +1,6 @@
 # Switch
+
+> <span style="font-style: italic; font-size:20px; font-family: Georgia, serif; color: #7baf56">"O Switch é um comutador de dados que trabalha com endereço MAC para redes internas.</span>
 ## Definição
 
 - Concetar dispostivos em uma rede entre si, permitindo que eles se comuniquem por meio 
@@ -13,7 +15,12 @@
 
 <img src="https://www.computernetworkingnotes.org/images/cisco/ccna-study-guide/csg36-04-switch-learning-process.png">
 
+### source MAC address X destination MAC address
+Quando um dispositivo envia dados, o switch verifica a tabela MAC para determinar a porta pela qual os dados devem ser enviados. O endereço MAC de origem é usado para atualizar a tabela MAC, enquanto o endereço MAC de destino é usado para encaminhar os dados para a porta correta. Assim, a tabela MAC ajuda a garantir que os dados sejam enviados para o dispositivo correto na rede.
+
 ## Etapas do mapeamento da Tabela MAC
+
+> Switchs fazem parte da camada 2 do moledo OSI - (Data Link Layer); Por isso ele usa endereços MAC, ao em vez do próprio indereço IP, pois o indereço IP faz parte da camada 3 (Network Layer) - ou seja, ele não tem acesso direto ao IP dos aparelhos por si só.
 
 - A tabela começa vazia, com nenhum valor para MAC Address nem suas respectivas portas.
 
