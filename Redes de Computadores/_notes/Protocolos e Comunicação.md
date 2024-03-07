@@ -32,7 +32,7 @@ Message Source **->** Enconder (Signal) **->** Transmission **->** Decodificaç�
 
 > Eles chegam a um acordo de qual será a velocidade de pacotes baseado na capacidade de processamento de cada um - o dispositivo mais lento que determinará a velocidade de comunicação.
 
-> **Uma das responsabilidades da [[04. Modelo OSI|Camada de Enlace]] é definir o tempo de mensagem na comunicação.**
+> **Uma das responsabilidades da [[09. Modelo OSI|Camada de Enlace]] é definir o tempo de mensagem na comunicação.**
 
 ### Dimensionamento da Mensagem
 - Se a mensagem for muito grande, ela é divida em pacotes menores.

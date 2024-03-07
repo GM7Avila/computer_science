@@ -27,7 +27,7 @@ Um resumo pessoal do conteúdo dos seguintes artigos/sites:
 - Endereço de Protoclo da Internet (Internet Protocol) são os endereços dos computadores na rede.
 - O departamento da ICANN conhecido como Internet Assigned Numbers Authority é responsável pela distribuição de endereçõs IP.
 
-- Cada copmputador/aparelho conectado à internet dev possuis eu endereço exclusivo no formato nnn.nnn.nnn.nnn (ipv4), onde nnn deve ser um número de 0 a 255 (como explicado em [[06. Endereço IP]])
+- Cada copmputador/aparelho conectado à internet dev possuis eu endereço exclusivo no formato nnn.nnn.nnn.nnn (ipv4), onde nnn deve ser um número de 0 a 255 (como explicado em [[04. Endereço IP]])
 ![[ruswp_diag1.gif]]
 - Quando conectamos na internet por meio de um provedor de serviços de internet (ISP), geralmente é recebido um endereço de IP temporário durante a sessão de discagem.
 - Caso nos conectamos a partir de uma LAN, o coputador pode ter um enedereço IP permanente ou pode obeter um endereço temporário de um servidor DHCP (Dynamic Host Configuration Protocol).

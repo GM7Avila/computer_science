@@ -3,7 +3,9 @@
 - Alocação de matriz na memória [[Memória Heap VS Memória Stack|Heap]];
 - Vetor de vetor (array de array);
 - Alocação para cada linha;
-- *note: é uma boa prática de programção iniciar os ponteiros para NULL (valor 0 para ponteiros) - não apontar para lixo de memória*;
+
+> [!NOTE] BOA PRÁTICA
+> - É uma boa prática de programção iniciar os ponteiros para NULL (valor 0 para ponteiros) - não apontar para lixo de memória;
 
 - matriz bidimensional dinâmica:
 ```C

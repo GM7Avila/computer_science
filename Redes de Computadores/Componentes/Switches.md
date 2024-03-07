@@ -25,9 +25,9 @@ Quando um dispositivo envia dados, o switch verifica a tabela MAC para determina
 - A tabela começa vazia, com nenhum valor para MAC Address nem suas respectivas portas.
 
 | MAC ADDRESS | PORT |
-| ---- | ---- |
-|  |  |
-|  |  |
+| ----------- | ---- |
+|             |      |
+|             |      |
 
 - Quando um dispositivo tenta se comunicar com outro (na mesma rede) ele envia um pacote ao Switch, com seu endereço MAC e o endereço MAC para qual dispositivo ele deseja enviar o pacote.
 
@@ -59,3 +59,4 @@ Quando um dispositivo envia dados, o switch verifica a tabela MAC para determina
 - Diferente do hub -> além de ser concetrador, ele comuta os dados, *permitindo que eles passem de um computador a outro diretamente*.
 	- **Comutação de dados:** encaminhar os dados somente para a porta de destino;
 - Recebe o sinal e envia para um computador destinatário da rede (o hub recebe e envia para todos os computadores da rede);
+
