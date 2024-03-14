@@ -123,7 +123,7 @@ yahoo.com    amazon.com   |       poly.edu      umass.edu
 	1. **Consulta recursiva** - quando a consulta retorna a resolução do nome de forma completa, sem retornar respostas parciais.
 	2. **Consulta iterativa** - quando para obter uma resposta completa é necessário realizar uma série de iterações com servidores obtendo, várias respostas parciais.
 
-![[Pasted image 20240310143951.png]]
+![[consulta_dns_name.png]]
 
 1. Solucionador solicita a solução do domínio e o servidor resolve por completo
 2. Solucionador solicita a solução do domínio e o servidor resolve em uma série de iterações até resolver.
