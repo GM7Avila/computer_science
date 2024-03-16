@@ -54,6 +54,7 @@ banner_icon:
 > 
 > **Leasetime** - tempo de aluguel: por quanto tempo uma máquina pode usar um endereço IP em uma determianda rede.
 
+<<<<<<< HEAD
 
 ### Respostas do Exercício 
 1. Source Port, Destination Port, Length, Checksum
@@ -62,3 +63,12 @@ banner_icon:
 4. 8 Bytes
 5. numero de 2 bytes = 1111.1111 = $2^8$ = 256???
 6. 
+=======
+### Lista - Lab Wireshark UDP
+1. Source Port, Destination Port, Length, Checksum
+2. Todos tem 1 byte ($4*2=8$ bytes) 
+3. É o comprimento do segmento (UDP): é a soma do length da data + length UDP ($1227-1219 = 8$ bytes)
+4. 8 Bytes
+5. numero de 2 bytes = 1111.1111 = 2^16 = 65535 (total); porém a carga útil é a capacidade de dados que o UDP pode levar para a camada superior: 65535 bytes - 8 bytes (cabeçalho) = 65527 (**teórico**); Porpem na prática ainda temos que considerar o IP (se considerarmos o ipv4 seria 65527 - 20 bytes = 65507)
+6. Protocol: UDP (17)
+>>>>>>> 4adc1ef3039674ae794d6887b5a3d2bc1f0ab7a6
