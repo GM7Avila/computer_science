@@ -1,5 +1,8 @@
 ---
 banner: "https://www.networkcomputing.com/sites/default/files/styles/flexslider_full/public/3-Wireshark_0.jpg?itok=9Hx_lktt"
+---
+---
+banner: "https://www.networkcomputing.com/sites/default/files/styles/flexslider_full/public/3-Wireshark_0.jpg?itok=9Hx_lktt"
 banner_y: 0.34002
 banner_icon:
 ---
@@ -30,7 +33,7 @@ banner_icon:
 
 - O Sniffer é uma adição ao software do hospedeiro e **consiste em duas partes:**
 
-![[Sniffer|100%]]
+![[_Sniffer|100%]]
 
 - **Biblioteca de captura de Pacotes**
 	- Recebe uma *cópia* de cada quadro da ==camada de enlace== que é enviado ou recebido pelo hospedeiro.
@@ -71,4 +74,3 @@ banner_icon:
 4. 8 Bytes
 5. numero de 2 bytes = 1111.1111 = 2^16 = 65535 (total); porém a carga útil é a capacidade de dados que o UDP pode levar para a camada superior: 65535 bytes - 8 bytes (cabeçalho) = 65527 (**teórico**); Porpem na prática ainda temos que considerar o IP (se considerarmos o ipv4 seria 65527 - 20 bytes = 65507)
 6. Protocol: UDP (17)
->>>>>>> 4adc1ef3039674ae794d6887b5a3d2bc1f0ab7a6
