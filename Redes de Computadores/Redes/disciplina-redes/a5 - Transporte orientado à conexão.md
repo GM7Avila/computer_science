@@ -34,7 +34,7 @@
 	- Para isso, o transmissor utiliza de **temporizadores** para avisar ao protocolo quando já passou muito tempo da transmissão de um segmento e ele não foi confirmado.
 		- Nesse caso o transmissor **retransmite** o segmento.
 
-- ==Caso==: o segmento chegar corretamente, porém ao enviar a confirmação ela for perdida, o segmento será retransmetido **indevidamente** - isso geraria uma duplicação de pacotes.
+- ==Caso==: o segmento chegar corretamente, porém ao enviar a confirmação ela for perdida, o segmento será retransmetido **indevidamente** - isso geraria uma duplicação de segmentos.
 
 ```
 T           R
@@ -55,14 +55,14 @@ T           R
 |   ❌<-----| ⚠️ [ERRO ao enviar segmento de confirmação]
 |           |
 |---------->| ⚠️ [ERRO: Segmento N recebido, se esperava N+1]
-|           |      ➥ Este pacote já foi recebido => descartar
+|           |      ➥ Este segmento já foi recebido => descartar
 |           |      ➥ ✅ Sem Segmentos duplicados
 |<----------|      ➥ [ENVIAR confirmação novamente]
 
 ```
 
 - ==Caso==: segmentos recebidos fora de ordem
-	- Os números de sequência também servirão para corrigir a ordem dos pacotes.
+	- Os números de sequência também servirão para corrigir a ordem dos segmentos.
 	- Imagine que o segmento 3 foi enviado primeiro do que o segmento 2.
 
 ```
@@ -151,7 +151,7 @@ T           R
 
 ![[Pasted image 20240317204226.png]]
 
-- Ao perder o Pkt3, o Receiver retornará para todos os outros pacotes o valor do último pacote antes do 3, que no caso foi o pacote 2 - isso quer dizer que ele solicitará uma retransmissão de todos os pacotes depois do 2 - **teste isso no simulador**.
+- Ao perder o Pkt3, o Receiver retornará para todos os outros segmentos o valor do último segmento antes do 3, que no caso foi o segmento 2 - isso quer dizer que ele solicitará uma retransmissão de todos os segmentos depois do 2 - **teste isso no simulador**.
 
 ---
 **❖ EXEMPLO** 
@@ -163,7 +163,7 @@ T           R
 ![[Pasted image 20240317205714.png]]
 ![[Pasted image 20240317205731.png]]
 - O protocolo descarta o segmento e envia ao transmissor uma *confirmação positiva* relativa ao **último segmento que recebeu corretamente**.
-- O time out vai estourar e ==enviar novamente toda a janela **a partir do último pacote verificado==. 
+- O time out vai estourar e ==enviar novamente toda a janela **a partir do último segmento verificado==. 
 - Ou seja, se um falha: retransmite tudo a partir do ponto que falhou.
 ![[Pasted image 20240317205859.png]]
 
@@ -229,7 +229,7 @@ T           R
 - **Número de sequência** - a nível de byte - indica o próximo byte que espera ser recebido pelo destinatário.
 - **Número de reconhecimento** - indica o próximo byte esperado pelo destinatário
 	- Numero de sequência: A manda pra B dados de 1 a 6
-	- Numero de reconhecimento: B manda para A um pacote com reconhecimento com o valor 7 - o próximo byte que ele está aguardando.
+	- Numero de reconhecimento: B manda para A um segmento com reconhecimento com o valor 7 - o próximo byte que ele está aguardando.
 - **Comprimento do cabeçalho** (HLEN) - informa o tamanho do cabeçalho em palavras de 32 bits - pode variar em função das opções.
 - **Campo de Flags** (1 bit cada)
 	- **URG** - Ponteiro urgente - indica que o segmento carrega dados urgentes;
@@ -240,7 +240,7 @@ T           R
 	- **FIN** - Usado para encerrar uma conexão;
 
 ### Conexão TCP
-- Estabelecimento da conexão: troca de pacotes iniciais 
+- Estabelecimento da conexão: troca de segmentos iniciais 
 - Protocolo ponto a ponto full duplex
 - Cliente Servidor
 	- Cliente inicia a conexão
@@ -331,7 +331,6 @@ C                                    S
 
 ---
 ### Controle de Fluxo
-
 > 6.5.8 Política de Transmissão do TCP - Tanenbaum
 
 ![[_TCP Controle de Fluxo|100%]]
@@ -344,7 +343,7 @@ C                                    S
 - Se houver perda durante a confirmação, o TCP enviará novamente a mensagem, porém o receptor verificará que o **número de sequência** enviado já foi alocado no buffer, então ele apenas descartará a informação e enviará uma nova mensagem de confirmação, assim como a que havia perdido.
 ### Congestionamento
 - Em uma rede de computadores pode ocorrer de vários hospedeiros realizarem transferência de dados tentando utilizar a vazão máxima que seus enlaces permitem.
-- O tráfego no núcleo da rede pode se elevar a níveis que comprometem a capciade de transferência, podendo causar longas filas no roteadores e consequentemente perda de muitos pacotes - *congestionamento*.
+- O tráfego no núcleo da rede pode se elevar a níveis que comprometem a capciade de transferência, podendo causar longas filas no roteadores e consequentemente perda de muitos segmentos - *congestionamento*.
 
 > [!NOTE] Controle de congestionammento e Controle de fluxo
 > Ambas as ferramentas de controle podem ser parecidas, mas são tarefas completamentes distintas. O **controle de fluxo** cuida da transmissão entre dois processos, a fim de evitar o estouro de buffer. Já o **controle de congestionamemnto** é uma **questão global que diz respeito a toda a rede**, e que afeta todas as conexões que passam pela parte da rede que está congestionada.
@@ -359,23 +358,23 @@ A     B                                 C       D
 - Um roteador que consegue processar dados do switch1 para o switch2 a uma taxa de 100Mbps, e que todos os enlaces têm uma capacidade de transmitir a uma taxa de 1000Mbps cada.
 
 - Suponha que o hospedeiro A esteja enviado dados para o hospedeiro D com uma taxa Ta e que o hospedeiro B esteja enviando para o C com uma taxa Tb.
-	- Enquanto ==Ta + Tb < taxa de transmissão do roteador== (100Mbps), será possível realizar a entrega dos pacotes normalmente pelo roteador.
+	- Enquanto ==Ta + Tb < taxa de transmissão do roteador== (100Mbps), será possível realizar a entrega dos segmentos normalmente pelo roteador.
 	- Porém, se Ta + Tb começar a se aproximar de 100Mbps ou for superior a taxa (por exemplo, se os quatro começam a enviar em uma taxa cujo somatório seja maior que o suportado pelo roteador):
-		- A meória do roteador encherá e perderá pacotes.
-		- Os buffers de saída do roteador começarão a encher e os pacotes passarão a permanecer cada vez mais tempo dentro dos buffers.
+		- A meória do roteador encherá e perderá segmentos.
+		- Os buffers de saída do roteador começarão a encher e os segmentos passarão a permanecer cada vez mais tempo dentro dos buffers.
 		- Haverá um aumento significativo no atraso de transmissão.
-		- Chegará um momento emq ue não será mais possível enfileirar os pacotes, sendo assim, o roteador os descarta.
+		- Chegará um momento emq ue não será mais possível enfileirar os segmentos, sendo assim, o roteador os descarta.
 
 ![[_TCP Início do Congestionamento]]
 
-- Antes mesmo antes de atingir os 100Mbps os buffers de saída já começam a encher provocando atraso nas entregas dos pacotes.
-- ==Em uma rede congestionada, a taxa de transferência de uma conexão diminui a cada roteador pelo qual os dados passam== - quanto mais roteadores os pacotes precisarem trafegar, maior será a perda de dados.
+- Antes mesmo antes de atingir os 100Mbps os buffers de saída já começam a encher provocando atraso nas entregas dos segmentos.
+- ==Em uma rede congestionada, a taxa de transferência de uma conexão diminui a cada roteador pelo qual os dados passam== - quanto mais roteadores os segmentos precisarem trafegar, maior será a perda de dados.
 - Isso acarreta na ==queda da taxa de dados entregues corretamente== (chega ao extremo fazendo com que a taxa de transferência chegue a zero);
 
 ![[_Taxa de transmissão x integridade dos dados]]
 
 - Enquanto está dentro do limite dos roteadores a taxa de transmissão e a taxa de integridade da entrega dos dados é praticamente diretamente proporcional. 
-- Quando se atinge o limite da taxa de transferência dos roteadores, o desempenho na entrega corretamente dos pacotes cai drasticamente - pois além das perdas de pacotes, o protocolo TCP começa a realizar uma série de retransmissões, o que acaba piorando ainda mais a situação.
+- Quando se atinge o limite da taxa de transferência dos roteadores, o desempenho na entrega corretamente dos segmentos cai drasticamente - pois além das perdas de segmentos, o protocolo TCP começa a realizar uma série de retransmissões, o que acaba piorando ainda mais a situação.
 
 ### Controle de Congestionamento no TCP
 - O TCP opera utilizando serviços oferecidos pelo protocolo IP, porém *o IP não fornece explicitamente informações relativas ao congestionamento* da rede;
@@ -401,3 +400,98 @@ A     B                                 C       D
 - Quando o temporizador de um transmissor se esgota (**evento de perda**): considera-se que houve perda de segmentos e que o TCP deverá retransmitir.
 - Outro exemplo de **evento de perda** é quando chegam sucessivas **confirmações com o mesmo número de confirmação**.
 	- *Eficiência*: é comum que depois da terceira confirmação com o mesmo número o TCP adiante as retransmissões.
+
+
+- ==O TCP considera que a perda de segmentos se dá apenas por **problemas de congestionamento**==:
+1.  **Se não está ocorrendo ==evento de perdas==**
+	- Ele assume que não há **congestionamento**
+	- Pode *aumentar o tramanho da janela de congestionamento, ==aumentando sua taxa de transmissão==.
+2. **Se a rede estiver passando por ==dificuldade na entrega==
+	- Os segmentos de dados demorarão para chegar ao destino
+		- As confirmações também demorarão para chegar no transmissor.
+	- Faz com que a *taxa de aumento da janela de congestionamento seja baixa.
+3. **Se a rede estiver com ==sobra de banda== - os segmentos chegando com sucesso
+	- Os segmentos de dados chegarão rapidamente ao destino
+		- As confirmações também chegarão rapidamente ao transmissor.
+	- Faz com que a *taxa de aumento da janela de congestionamento seja alta.
+- Por isso dizemos que o TCP é um ==**PROTOCOLO ALTO REGULADO**==
+- Constante busca pela melhor taxa de transmissão.
+
+> O tempo de estouro do temporizador é definido de acordo com a situação da rede - regulado pela conexão.
+
+### Partida Lenta
+- No início da conexão o TCP inicia uma partida lenta:
+	- No início da conexão o tamanho da janela de controle de congestionamento é estipulado em 1MSS - só pode enviar um segmento inicialmente (*não começa com paralelismo e sim como bit alternado*)
+
+- Variáveis
+	- **cwnd** - tamanho da janela de controle de congestionamento;
+	- **MSS** - Maximum Segment Size 
+		- Representa a maior quantidade de dados que pode ser enviado em um segmetno TCP.
+		- Valor negociado no momento do estabelecimento da conexão.
+	- **RTT** - Round Trip Time (tempo de viagem de ida e volta).
+		- Tempo que um pequeno segmento leva para sair do transmissor, chegar no receptor e voltar como confirmação para o transmissor.
+		- 1 RTT é o tempo de ida e volta (confirmação)
+
+A taxa de transmissão T pode ser calculada: $T=MSS/RTT$
+- Quanto foi transmitido em um determinado tempo = taxa de transmissão (kbps)
+- Uma rede que possua um MSS=1500 bytes e RTT 20ms
+	- 1500bits/20ms = 12000bits/0,020s = 600kbps
+
+Abaixo temos a média do RTT ao se comunicar com google.com.br: 4 MS
+```
+> ping www.google.com.br
+
+Disparando www.google.com.br [1800:f30:4204:834::2001] com 32 bytes de dados:
+Resposta de 1800:f30:4204:834::2001: tempo=4ms
+Resposta de 1800:f30:4204:834::2001: tempo=8ms
+Resposta de 1800:f30:4204:834::2001: tempo=4ms
+Resposta de 1800:f30:4204:834::2001: tempo=6ms
+
+Estatísticas do Ping para 1800:f30:4204:834::2001:
+    Pacotes: Enviados = 4, Recebidos = 4, Perdidos = 0 (0% de perda),
+    
+Aproximar um número redondo de vezes em milissegundos:
+    Mínimo = 4ms, Máximo = 8ms, Média = 5ms
+```
+
+Na prática...
+- A cada confirmação recebida, a janela de transmissão *aumenta em 1MSS* (crescendo exponencialmente).
+- A **janela de controle de congestionamento** dobra a cada tempo de ida e volta.
+- Para o exemplo anterior, onde a taxa incial é 600kbbps, a taxa de transmissão pode ultrapassar 300Mpbs em apenas 200 ms.
+![[partidalenta.png]]
+
+- Caso aconteça evento de perdas (temporizador estourou sem recebimento) algumas ações são tomadas.
+	- Uma variável conhecida como **ssthresh** (slow start threshold - limiar de partida lenta) recebe a mentade do valor atual do **cwnd**.
+	- **cwnd** recebe o valor 1
+	- O processo de partida lenta é reiniciado.
+
+<img src="https://www.researchgate.net/publication/256871809/figure/fig6/AS:668503946297344@1536395169060/TCP-Slow-Start-and-Congestion-Avoidance.ppm">
+
+- A partir da segunda rodada o valor de cwd continua aumentando em 1 MSS a cada confirmação recebida, até o se iguale ao valor de ssthresh
+	- A partir desse momento o TCP muda para o modo **prevenção de congestionamento** (congestion avoidance).
+
+- No caso de recebimento de 3 confirmações com o mesmo valor o TCP entra no modo de **recuperação rápida**.
+
+> O algoritmo de controle de congestionamento TCP é padronizado pelo RFC 5681
+
+### Modo de Prevenção de Congestionamento
+- Quando entra no modo prevenção de congestionamento, o valor de `cwnd` é metade do valor que tinha quando o congestionamento ocorreu pela última vez.
+- O TCP passa a aumentar o tamanho de `cwnd` mais lentamente - em vez de aumentar o valor de cwnd em 1MMS a cada confirmação que chega, seu valor é aumentado em 1MMS a cada RTT (*tempo de ida e volta*).
+
+- A cada esgotamento do temporizador do transmissor, o algoritmo calcula um novo valor **ssthresh** (novamente metade do valor atual de cwnd) e reinicia o processo de partida lenta.
+- Esse algoritmo faz com que o transmissor fique sempre **próximo da taxa limite** em que pode transmitir, *obtendo um bom desempenho para toda a rede*.
+
+- A **recuperação rápida** se inicia quando são recebidas 3 confirmações com mesmo número de sequência.
+- O TCP assume que pode ter havido a perda do segmento e providencia sua retransmissão.
+- Após a retransmissão do segmento:
+	- A variável ssthresh recebe o valor correspondente a metade do valor contindo na variável cwnd.
+	- A variável cwnd no entendo é atualizada com valor sshthresh+3 - ou seja, *não precisa ir à zero*.
+	- A Imagem abaixo mostra esse comportamento (linha vermelha).
+
+<img src="https://media.geeksforgeeks.org/wp-content/uploads/20220202202717/tahoerenocongestionwindowcompare.png">
+
+- O comportamento ao longo do tempo (com congestionamento) é o formato de dente de serra;
+
+---
+
+> Continuação: camada de rede aula 6
