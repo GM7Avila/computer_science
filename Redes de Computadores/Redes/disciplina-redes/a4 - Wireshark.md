@@ -57,8 +57,6 @@ banner_icon:
 > 
 > **Leasetime** - tempo de aluguel: por quanto tempo uma máquina pode usar um endereço IP em uma determianda rede.
 
-<<<<<<< HEAD
-
 ### Respostas do Exercício 
 1. Source Port, Destination Port, Length, Checksum
 2. Todos tem 1 byte ($4*2=8$ bytes) 
