@@ -48,7 +48,9 @@ banner_icon:
 - usar `.`, buscará as propriedades internas do elemento; é possivel fazer variados tipos de buscas, exemplos:
 	- `udp.port==53` - busca pela porta 53 que usa UDP
 	- `ip.src==193.168.1.1` - filtro mostra apenas os pacotes que têm o endereço IP de origem especificado; útil para exanminar o tráfego originado de um determiando host.
+	- ``(ip.src == IP1 && ip.dst == IP2) || (ip.src == IP2 && ip.dst == IP1)`` - filtra dois endereços IP 
 	- `tcp.flags.syn==1 and tcp.flags.ack==0` - pacotes TCP que tem o flag SYN definidos como 1 (indicando uma solicitação de conexão) e o flag ACK definido como zero (indicando que não é uma confirmação de conexão); isso pode ser útil para encontrar tentativas de conexão TCP.
+	- `tcp contains "POST"` - exibe os pacotes capturados que possuem a palavra "POST" nos dados transmitidos através do protocolo TCP
 
 ## Captura de Pacotes
 

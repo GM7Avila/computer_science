@@ -42,7 +42,6 @@ Um resumo pessoal do conteúdo dos seguintes artigos/sites:
 - *World Wide Web Consortium (W3C)* - organização oficial de padrões web;
 - Broswer web (navegadores) - renderizadores de páginas web.
 - Web != internet; Web é um serviço/aplicação da internet.
-- 
 
 ## SSL
 - *Secure Sockets Layer*
