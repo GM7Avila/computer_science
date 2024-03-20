@@ -1,6 +1,5 @@
 # Camada de Rede na Internet
 #ip #ipv4 
-
 ## Protocolo IPv4
 - Na Internet a camada de rede trata cada pacote de forma **independente**.
 	- O pacote atual não tem qualquer relação com pacotes anteriores ou posteriores.
@@ -140,11 +139,6 @@ O endereço IP de 32 bits é divido então em 2 partes: **A.B.C.D/X**
 	- **Subnet D**: ==233.1.9==.0==/24==
 	- **Subnet E**: ==233.1.8==.0==/24==
 	- **Subnet F:** ==233.1.7==.0==/24==
- 
-```
-00000000.00000000.00000000.00011111
-   000  .   000  .   000  .  000/32
-```
 
 > Antigamente com as redes classe A, B e C se desperdiçava muitos endereços, pois se utilizavam bytes inteiros para definir subrede.
 
@@ -177,6 +171,210 @@ No geral existem categorias de máscara (padrão), dividias em classes:
 | A      | 255.0.0.0     | /8           | FF:00:00:00 |
 | B      | 255.255.0.0   | /16          | FF:FF:00:00 |
 | C      | 255.255.255.0 | /24          | FF:FF:FF:00 |
-- Classe A: 8 bits representam a rede e os 24 restantes os hospedeiros.
-- Classe B: 16 bits representam a rede e 16 os hospedeiros.
-- Classe C: 24 bits representam a rede e 8 bits os hospedeiros.
+- **Classe A**: 8 bits representam a rede e os 24 restantes os hospedeiros.
+- **Classe B**: 16 bits representam a rede e 16 os hospedeiros.
+- **Classe C**: 24 bits representam a rede e 8 bits os hospedeiros.
+---
+**❖ EXEMPLO** 
+- O endereço IP 168.23.0.0 com a máscara de rede padrão: 255.255.0.0
+
+```
+|  168  |  23  |  0  |  0  |
+|----Rede------|---Host----|
+
+| 255  |  255  |  0  |  0  |
+|----Rede------|---Host----|
+```
+
+- A organização pode querer trabalhar com várias sub-redes internas, para isso ela cria uma máscara de sub-rede com 8 bits:
+```
+| 255  |  255  |  0  |  0  | <--Mundo externo
+|----Rede------|---Host----|
+
+
+| 255 | 255 | 255 |  0  |
+|----Rede---|  |     |
+.              |
+Sub-rede_______|     | 
+Hospedeiro___________|  
+```
+---
+- Ao dividir uma rede em sub-redes, deve-se alocar os bits para a sub-rede a partir dos bits de mais alta ordem (bits mais à esquerda) do campo do hospedeiro.
+- Quanto mais bits à esquerda, maior a capacidade de sub-redes, e menor a capacidade de hospedeiros nessa sub-rede.
+- Quanto menos bits à direita, menor a capacidade de sub-redes, e maior capacidade de hospedeiros nessa sub-rede.
+
+- A tabela mostra os valores usados no campo do hospedeiro quando se divide uma tabela em sub-redes.
+
+| **128** | **64** | **32** | **16** | **8** | **4** | **2** | **1** | -----   |
+| ------- | ------ | ------ | ------ | ----- | ----- | ----- | ----- | ------- |
+| 0       | 0      | 0      | 0      | 0     | 0     | 0     | 0     | **0**   |
+| 1       | 0      | 0      | 0      | 0     | 0     | 0     | 0     | **128** |
+| 1       | 1      | 0      | 0      | 0     | 0     | 0     | 0     | **192** |
+| 1       | 1      | 1      | 0      | 0     | 0     | 0     | 0     | **224** |
+| 1       | 1      | 1      | 1      | 0     | 0     | 0     | 0     | **240** |
+| 1       | 1      | 1      | 1      | 1     | 0     | 0     | 0     | **248** |
+| 1       | 1      | 1      | 1      | 1     | 1     | 0     | 0     | **252** |
+| 1       | 1      | 1      | 1      | 1     | 1     | 1     | 0     | **254** |
+| 1       | 1      | 1      | 1      | 1     | 1     | 1     | 1     | **255** |
+- De uma forma mais geral, essas são todas as máscaras que podem existir:
+	- Não existe máscara menor que /8 (e na prática não existem máscaras para redes maiores que /30: 31 e 32 são usadas para mecanismos de seguraça para identificar um host individual).
+	
+![[Pasted image 20240319193442.png]]
+
+- Existem várias **razões** para se **dividir uma rede em sub-redes**:
+	- Isolar o tráfego de uma sub-rede, reduzindo assim o tráfego total da rede.
+	- Proteger / limitar o acesso a uma sub-rede.
+	- Associação de uma sub-rede com um departamento ou espaço geográfico específico.
+
+---
+**❖ EXEMPLO - PROBLEMA**
+- Um adm recebeu para uso a rede 172.16.22.0/24, e que precisa utilizar internamente 4 sub-redes de igual tamanho.
+
+1. Qual a máscara de sub-rede ve ser utilizada?
+   - /24 = **255.255.255**.==0== = **11111111.11111111.11111111**.==00000000==
+	   - Neste caso, ==0== é o único campo onde podemos manipular para a criação de sub-redes. Todo o restante é (255.255.255) é informação já usada pelo endereço IP (estrutura fora da organização).
+	   - Para isso vamos "roubar" alguns bits do campo do host, e leva-los ao campo de rede (==assim aumentamos a capacidade de sub-redes porém diminuímos a capacidade de hospedeiros para cada uma das redes criadas==)
+	   - Então, se é desejado a criação de 4 subredes, precisamos de 2 bits, assim 2^2 = 4;
+	   - Máscara de sub-rede: **11111111.11111111.11111111**.**11**==000000==
+		   - Em notação decimal com pontos: 255.255.255.192 ou seja, **máscara /26**
+	
+2. Quantas interfaces podem ser configuradas em cada sub-rede?
+	- Nova máscara: **11111111.11111111.11111111**.**11**==000000==
+	- Temos 6 bits (0 à direita) para identificar os hosts, logo 2^6 = 64 endereços
+	- ==O primeiro e último endereços **são reservados para endereço de rede e difusão**==, então sobram **62 interfaces em cada sub-rede** (incluindo a interface do roteador)
+	  
+3. Qual a faixa de endereços de cada sub-rede?
+	- 172.16.22.0 = 10101100.00010000.00010110.**00**000000
+	- Os primeiros 16 bits (==10101100.00010000.00010110==.**00**000000) representam a subrede original.
+	- O que foi retirado do campo de host foram os dois bits (**00**) do último byte, usados para representar as sub-redes, ==isso significa que eles vão de 00 até 01 (00,01,10,11 - 4 subredes)==
+	
+	- Então a **primeira** sub-rede (**00**) será:
+	- 10101100.00010000.00010110.**00**==000000== a 10101100.00010000.00010110.**00**==111111==
+	- 172.16.22.0 a 172.16.22.63
+	- 0 ao 63 (64 endereços)
+	  
+	- A **segunda** sub-rede (**01**) será:
+	- 10101100.00010000.00010110.**01**==000000== a 10101100.00010000.00010110.**01**==111111==
+	- 172.16.22.64 a 172.16.22.12
+	  
+	 - A **terceira** sub-rede (**10**) será:
+	- 10101100.00010000.00010110.**10**==000000== a 10101100.00010000.00010110.**10**==111111==
+	- 172.18.22.128 a 172.16.22.191
+	
+	- A **quarta** sub-rede (**11**) será
+	- 10101100.00010000.00010110.**11**==000000== a 10101100.00010000.00010110.**11**==111111==
+	- 172.16.22.192 a 172.16.22.255
+	
+
+> [!NOTE] Um método mais fácil
+O endereço IP é 172.16.22.0, isso significa que os endereços vão de 172.16.22.0 até 172.16.22.255 = 256 valores de intervalo. Se queremos saber as 4 sub-redes, tendo em vista que dividimos por 4, então os intervalos para cada sub-rede será: 256 intervalos / 4 sub-redes = cada sub-rede terá 64 endereços (0~63; 64~127;128~191;192~255);
+
+4. Quais destes endereços são utilizáveis?
+	- Endereço da rede é sempre o primeiro endereço
+	- O endereço de difusão é sempre o último endereço
+	- Então é só desconsirá-los para cada intervalo, exemplo:
+		- 172.16.22.0 ~ 172.16.22.63: 172.16.22.1 a 172.17.22.62
+
+---
+### Network Address Translation (NAT)
+- Com o NAT uma organização pode **utilizar internamente uma faixa de endereços que não é válida na internet** (solucionar o problema dos ipv4 escassos).
+	- Quando for necessário acessar a internet, o NAT traduz o endereço interno (não válido) para um endereço válido.
+
+- **Ideia básica**:
+	- Atribuir a cada organização uma pequena quantidade de endereços IP para tráfego na Internet.
+	- Dentro da organização todo computador obtém um endereço IP exclusivo (também conhecido como **IP privado**).
+```        
+ <--válido-- Roteador <-invalido-    [A] [B] [C]
+(INTERNET)-----(X)--------------------|---|---|
+.               | \                   \   |   /
+mapeamento<-----|  NAT                IP privado
+```
+
+- Três *intervalos* de endereços IP foram declarados como **endereços privativos** (reservados).
+	- As organizações podem utilizá-los internamente da maneira que quiserem.
+	- Nenhum pacote contendo esses endereços pode aparecer na própria Internet.
+	- Os três intervalos reservados são dados na tabela (endereços usados internamente)
+
+| Faixa                                 | Máscara       | Classe | Faixa reservada      |
+| ------------------------------------- | ------------- | ------ | -------------------- |
+| **10**.0.0.0 a **10**.255.255.255     | 255.0.0.0     | A      | -                    |
+| **172.16**.0.0 a **172.31**.255.255   | 255.255.0.0   | B      | 32 redes reservadas  |
+| **192.168**.0.0 a **192.168**.255.255 | 255.255.255.0 | C      | 256 redes reservadas |
+- Dentro da organização toda máquina tem um endereço exclusivo que não é válido pela Internet.
+- Quando um pacote deixa a organização, ele passa por uma caixa NAT normalmente um roteador:
+	- Converte o endereço de origem no endereço IP válido da organização.
+	- O pacote com o novo endereço poderá transitar sem problemas na Internet.
+- Quando a resposta do pacote voltar
+	- Voltá para o endereço IP válido da organização
+	- A caixa NAT **mantém uma tabela** na qual poderá ==mapear que máquina enviou qual requisição== para a internet (e seus respectivos endereços).
+
+```
+.                                    [A] [B] [C]
+(INTERNET)-----(X)--------------------|---|---|
+.              / \                    \   |   /
+   200.20.30.40   192.168.0.1         IP privado  
+```
+
+| IP-interno  | Porta-interna | IP-map       | Porta-map | IP-ext        | Porta-ext |
+| ----------- | ------------- | ------------ | --------- | ------------- | --------- |
+| 192.168.0.1 | 5798          | 200.20.30.40 | 3297      | 210.150.45.78 | 80        |
+ 
+- Interação do cliente `192.168.0.4` com servidor web `210.150.45.78` (na internet)
+	- Pacote de Envio
+		- IP Origem: `192.168.0.1`
+		- Porta Origem: `5787`
+		- IP Destino: `210.150.45.78`
+		- Porta Destino: `80`
+	
+	- Quando passar pelo Roteador, o pacote acima não poderá entrar na internet com o endereço de origem (tanto o IP quanto a porta).
+	- Então o NAT mapeia um endereço apropriado para o pacote de acordo com os requisitos da internet - **registra na tabela.**
+	- Pacote de saída pelo NAT
+		- IP Origem: `200.20.30.40`   **<<------**
+		- Porta: `3297`                        **<<------**
+		- IP Destino: `210.150.45.78`
+		- Porta Destino: `80`
+		
+	- A resposta chega normalmente ao NAT que fará o mapeamento para o endereço interno.
+
+### Rede de Datagramas
+- Em uma rede de datagramas, toda vez que um sistema final quer enviar um pacote le coloca o endereço destino no pacote e o envia pela rede.
+- Ao ser transmitido o pacote passa por uma série de roteadores - cada um usa o endereço destino para repassar o datagrama.
+	- O roteador transmite o pacote para aquela interface de enlace de saída.
+
+- Se todos os endereços (datagrama IP) possuem 32 bits
+	- Uma execução de força bruta da tabela de repasse teria um registro para cada endereço de destino possível
+	- Há *mais de quatro bilhões de endereços possíveis* - **isso é fora de questão!**
+
+- Agora suponha que o roteador tenha 4 enalces numerados de 0 a 3, e que os pacotes devem ser repassados para as interfaces de enlace como mostrado a seguir:
+
+![[Pasted image 20240320114936.png]]
+
+- Resumindo a tabela (considerando apenas o início - pois todo o restante dos bits mudam)
+
+| Faixa de endereços de destino | Interface de enlace |
+| ----------------------------- | ------------------- |
+| 11001000 00010111 00010       | 0                   |
+| 11001000 00010111 00011000    | 1                   |
+| 11001000 00010111 00011       | 2                   |
+| Rota padrão                   | 3                   |
+ 
+- Sendo assim a tabela poderia ter apenas 4 registros.
+- Quando há várias concordâncias de prefixos, o roteador usa a **regra da concordância do prefixo mais longo** (interface de enlace 2 e 3 são iguais até certo ponto, então vale o prefixo mais longo).
+
+> Embora o NAT funcione, ele tem um problema: ele viola os conceitos de protocolos de rede quando usa o número de porta - uma informação da camada de transporte. Por isso desenvolveu-se o IPv6.
+> 
+> Um protocolo não deve necessitar usar informações de outra camada para funcionar/trabalhar (no caso o NAT tem essa dependência - ao usar endereços de porta).
+
+---
+## Protocolo IPv6
+- Número de computadores aumentou - espaço de 32 bits escaço
+	- *Em fev. de 2011 o IANA alocou o último bloco de endereços IPv4*
+- NAT viola o princípio de camadas
+- Avanço das tecnologias e recursos de redes (como exemplo o surgimento da transmissão de áudio e vídeo em tempo real)
+
+> A adoção do IPV6 tem tido alguns atrasos pelos seguintes motivos:
+> 
+> O IPv4 adotou algumas medidas como: endereçamento sem classe, uso de DHCP para alocação dinâmica de endereços e o NAT; Essas medidas tem sustentado o uso um pouco mais prolongado do IPv4.
+> 
+> Por outro lado, a rápida expansão do uso da Internet e os novos serviço, como o IP móvel e telefonia móvel compatível com IP, podem exigir a rápida substituição do IPv4 pelo IPv6.
+
