@@ -378,3 +378,35 @@ mapeamento<-----|  NAT                IP privado
 > 
 > Por outro lado, a rápida expansão do uso da Internet e os novos serviço, como o IP móvel e telefonia móvel compatível com IP, podem exigir a rápida substituição do IPv4 pelo IPv6.
 
+### Vantagen em relação ao IPv4
+- Espaço de endereço maior (128 bits de comprimento contra 32 bits do IPv4)
+- Introdução de um novo tipo de endereço para qualquer membro do grupo (**anycast**)
+	- Permite que um datagrama seja entregue a qualquer hospedeiro do grupo.
+		- Basta entregar para um hospedeiro de um grupo.
+- Formato de cabeçalho melhor
+	- Opções são separadas do cabeçalho de base e *inseridass somente quando necessário*
+- Novas opções
+	- Oferece funcionalidades adicionais
+- Margem para amplicação
+	- É projetado para permitir a apliação do protocolo, caso seja exigido por *novas tecnologias ou aplicações*
+- Suporte para alocação de recursos
+- Suporte para mais segurança
+	- Operação de criptografia e autenticação proporcionam a confidencialidade e integridade ao pacote.
+
+
+### Datagrama 
+- IPv6 - datagrama minimalista/simplificado (+velocidade e modular)
+<img src="https://electronicspost.com/wp-content/uploads/2016/05/4.24.png">
+
+- **Versão**: Versão do protocolo: 6
+- **Classe de Tráfego**: Também recebe o nome de ==serviços diferenciados==; Usado para distinguir a clase de serviço para pacotes com diferentes requiito de entrega em tempo real - exemplo: informar que é um pacote de vídeo (para um tratamento melhor).
+- **Rótulo de Fluxo**: Permitem que origem de destino marquem grupo de pacotes que têm os mesmos requisitos que devem ser tratados da mesma maneira pela rede.
+	- O fluxo pode ser configurado com antecedência e ter um identificador atribuído a ele.
+		- Quando possui valor diferente de zero os roteadores podem verificar que tipo de tratamento especial ele exige.
+	- É uma tentativa de ter a flexibilidade de uma rede de datagramas com as garantias de uma rede de ==circuitos virtuais==.
+- **Comprimento da carga útil**: Quantidade de bytes que seguem o cabeçalho (apenas o comprimento do ==Dados==). Em relação ao IPv4 os bytes do cabeçalho deixaram de ser contados como parte do tamanho.
+- **Próximo cabeçalho**: Torna o IPv6 mais minimalista, com a possiblidade de haver outros cabeçalho de extensão se for preciso (opcional). 
+	- Informa quais dos cabeçalhos de extensão seguem esse cabeçalho (se houver algum)
+	- Se esse cabeçalho for o último, o campo revelará para qual tratador de protocolo de transporte (TCP, UDP, ...) o pacote deverá ser enviado.
+- **Limite de saltos**: TTL da IPv4 - é decrementado a cada salto. Quando o contador de saltos do pacote chegar a zero, ele é ==descartado==.
+- **Endereço de origem e destino**: 128 bit cada (16 bytes cada).
