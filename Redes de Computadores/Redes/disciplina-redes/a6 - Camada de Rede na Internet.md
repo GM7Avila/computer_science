@@ -383,6 +383,8 @@ mapeamento<-----|  NAT                IP privado
 - Introdução de um novo tipo de endereço para qualquer membro do grupo (**anycast**)
 	- Permite que um datagrama seja entregue a qualquer hospedeiro do grupo.
 		- Basta entregar para um hospedeiro de um grupo.
+	- **IPv4**: unicast, multicast.
+	- **IPv6**: unicast, multicast, anycast.
 - Formato de cabeçalho melhor
 	- Opções são separadas do cabeçalho de base e *inseridass somente quando necessário*
 - Novas opções
@@ -392,8 +394,6 @@ mapeamento<-----|  NAT                IP privado
 - Suporte para alocação de recursos
 - Suporte para mais segurança
 	- Operação de criptografia e autenticação proporcionam a confidencialidade e integridade ao pacote.
-
-
 ### Datagrama 
 - IPv6 - datagrama minimalista/simplificado (+velocidade e modular)
 <img src="https://electronicspost.com/wp-content/uploads/2016/05/4.24.png">
@@ -410,3 +410,4 @@ mapeamento<-----|  NAT                IP privado
 	- Se esse cabeçalho for o último, o campo revelará para qual tratador de protocolo de transporte (TCP, UDP, ...) o pacote deverá ser enviado.
 - **Limite de saltos**: TTL da IPv4 - é decrementado a cada salto. Quando o contador de saltos do pacote chegar a zero, ele é ==descartado==.
 - **Endereço de origem e destino**: 128 bit cada (16 bytes cada).
+
