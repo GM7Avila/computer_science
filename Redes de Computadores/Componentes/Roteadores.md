@@ -27,6 +27,6 @@
 
 ## Outras funções do Roteador
 - O roteador também executa outras funções, como:
-	- Firewall 
-	- NAT
-	- DHCP
+	- [[a3.1 - Camada de Aplicação e Serviços|Firewall]] 
+	- [[a6 - Camada de Rede na Internet|NAT]]
+	- [[a6 - Camada de Rede na Internet|DHCP e ARP]]

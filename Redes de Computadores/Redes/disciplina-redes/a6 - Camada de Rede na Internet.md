@@ -389,6 +389,8 @@ mapeamento<-----|  NAT                IP privado
 	- Opções são separadas do cabeçalho de base e *inseridass somente quando necessário*
 - Novas opções
 	- Oferece funcionalidades adicionais
+- Rotulação de fluxo e prioridade
+	- Permite rotular pacotes que pertecem a fluxos particulares para os quais o remetente requisita tratamento especial - ex.: serviço de tempo real.
 - Margem para amplicação
 	- É projetado para permitir a apliação do protocolo, caso seja exigido por *novas tecnologias ou aplicações*
 - Suporte para alocação de recursos
@@ -410,4 +412,394 @@ mapeamento<-----|  NAT                IP privado
 	- Se esse cabeçalho for o último, o campo revelará para qual tratador de protocolo de transporte (TCP, UDP, ...) o pacote deverá ser enviado.
 - **Limite de saltos**: TTL da IPv4 - é decrementado a cada salto. Quando o contador de saltos do pacote chegar a zero, ele é ==descartado==.
 - **Endereço de origem e destino**: 128 bit cada (16 bytes cada).
+
+---
+
+- Alguns campos que aparecem no datagrama IPv4 não estão presentes no datagrama IPv6:
+	- **Fragmentação/Remontagem**
+		- O IPv6 **não permite** fragmentação e remontagem em *roteadores intermediários*.
+		- Essas operações podem ser realizadas ==apenas pela origeme pelo destino.==
+		- Se um datagrama IPv6 recebido por um roteador for muito grande, o roteador **descartará** o datagrama e devolverá ao remetente uma mensagem de erro ICMP "Pacote muito grande".
+		- Os pacotes devem sair da origem com o tamanho ideal para trafegar por todos os enlaces - isso diminui bastante o processamento nos roteadores.
+	- **Chekcsum do cabeçalho**
+		- Essta tarefa hoje em dia já é realizada por protocolos de transporte e de enlace de dados.
+		- Os projetistas estavam mais preocupados com o processamento rápido de pacotes.
+			- Antes, qualquer alteração do campo TTL (incrementado a cada roteador) provocava uma necessidade de uma nova soma de verificação - isso tornava o trafego lento.
+
+---
+
+### Endereço IPv6
+- Posicionado **diretamente na internet**
+- Endereços de 128 bits (16 bytes
+- Representado por 8 blocos de 16 bits cada (representados em hexadecimal), separados por caractere dois pontos.
+	- Ex.: `2022:0000:0000:0000:0003:4567:00FA:B100`
+
+- São possíveis duas otimizações:
+	1. Os zeros à esquerda dentro de um grupo podem ser omitidos
+		- 0123 pode ser escrito como 123.
+	2. Um ou mais grupos consecutivos de 16 bits zero podem ser substituídos por um par de sinais de dois-pontos (uma única vez);
+		- O endereço anterior pode ser escrito como:
+		- 2022==::3==:4567:FA:B100
+
+- Endereços IPv4 podem ser escritos com um par de sinais de dois pontos em um número decimal tradicional:
+	- `::192.31.20.46`
+
+#### Categorias de Endereço
+1. **Unicast**
+	- Define um único hospedeiro.
+	- O datagrama enviado a um endereço unicast deve ser encaminhado para esse hospedeiro específico.
+2. **Anycast**
+	- Define um grupo de hospedeiros com endereços que possuem o mesmo prefixo.
+	- Um datagrama enviado a um endereço anycast deve ser **encaminhado para exatamente um dos membros do grupo**
+3. **Multicast**
+	- Define um grupo de computadores.
+	- Um datagrama enviado deve ser **encaminhado para CADA membro do grupo**.
+
+#### Espaços de endereço
+- O espaço de endereços tem propósitos diferentes.
+- A primeira parte do é chamada de **==prefixo de tipo==**
+	- Prefixo de comprimento variável que define o **propósito** do endereço.
+
+```
+|<-------------------128 bits--------------------->|
+|<--Variável->|<-------------Variável------------->|
+
++-------------+------------------------------------+
+| PREFIXO DE  |          RESTANTE DO               |
+|    TIPO     |            ENDEREÇO                |
++-------------+------------------------------------+
+```
+
+#### Endereços Unicast baseados no provedor
+- É utilizado por um hospedeiro normal como endereço unicast.
+
+```
+|<-------------------128 bits----------------------------------------->|
+|<--8bits-->|
+|--3--|--5--|
+.           .
++-----+-----+----------+-----------+-----------+---------------------+
+|     |     | id de    | id de     | id de     |  identificador de   |
+|  *  |  *  | provedor | assinante | sub-rede  |        node         |
++--|--+--|--+----------+-----------+-----------+---------------------+
+   |     |
+  010    |
+(tipo)   |
+         |
+     INTERNIC 11000
+     RIPNIC   01000
+     APNIC    10100   
+    (id de registro) 
+```
+
+- Identificador de tipo
+	- Campo de 3 bits que define o endereço como sendo baseado no provedor.
+- Identificador de Registro
+	- Campo de 5 bits que indica o órgão que registrou o endereço
+	- Atualmente não está mais em uso e seu conteúdo é preenchido com zeros.
+- Identificador de provedor
+	- Campo de comprimento variável que identifica o provedor de acesso à internet.
+- Identificador de assinante
+	- Identifica a orgnaização que se inscreve por meio do provedor.
+- Identificador de sub-rede
+	- Define uma rede específica sob o domínio do assinante.
+- Identificador de node
+	- Define a identidade do nó conectado a uma sub-rede
+	- Um comprimento de 48 bits é recomendado para esse campo para torná-lo compatível com o endereço físico de 48 bis usado pelo [[IEEE 802]].
+
+#### Endereços Reservados
+- **==PREFIXO RESERVADO==** `00000000`
+	- **Endereço não especificado**
+		- O endereço inteiro consiste em zeros.
+		- Este endereço é usado quando um host não sabe seu prórpio endereço e envia uma consulta para descobri-lo.
+		- Esse endereço (não especificado) não pode ser usado como endereço de destino.
+	- **Endereço de retorno** (local)
+		- Endereço usado por um host para testar ele mesmo, sem entrar na rede.
+		- Consiste no prfeixo `00000000`, seguido de 119 bits zero e um bit 1.
+	- **Endereços IPv4** 
+		- Dois formados foram definidos para incorporar endereços IPv4 em endereços IPv6:
+		- **Endereço compatível**
+			- Endereço de 96 bits zero seguidos de 32 bits de endereço IPv4.
+			- Utilizado quando um hospedeiro usando IPv6 quer enviar uma mensagem a outro hospedeiro usando IPv6 mas o datagrama passa por uma região usando IPv4.
+		- **Endereço mapeado**
+			- Compreende 80 bits zero, seguidos de 16 bits um, seguidos do endereço IPv4 de 32 bits.
+			- Usado quando um hospedeiro que migrou para o IPv6 quer enviar um pacote para um hospedeiro que ainda está usando IPv4 (o roteador faz compatibilização).
+
+```
+ENDEREÇO COMPATÍVEL
+
++-----------+---------------------------------------+----------------+
+|  8 bits   |              88 bits                  |   32 bits      |
+| 00000000  |         Todos os valores 0            |   End. IPv4    |
++-----------+---------------------------------------+----------------+
+
+
+Exemplo de Transformação de Endereço
+
++---------------+                                       +---------------+
+|     IPv6      |                                       |     IPv4      |
+| 0::020D:110E  |<------------------------------------->|   2.13.17.14  |
++---------------+                                       +---------------+
+```
+
+```
+ENDEREÇO MAPEADO
+
++-----------+--------------------+---------------------+-----------------+
+|  8 bits   |     72 bits        |  16 bits            |    32 bits      |
+| 00000000  | Todos os valores 0 |  Todos os valores 1 |    End. IPv4    |
++-----------+--------------------+---------------------+-----------------+
+```
+
+#### Endereços Locais
+- ==**PREFIXO RESERVADO**== `1111 1110`
+	- **Endereço local de link** - endereço de autoconfiguração
+		- Usados se uma rede local utilizar os protocolos Internet, mas não estiver conectado à internet.
+		- Usa o prefixo `1111 1110 10`
+		- O endereço local de link é usado em uma ==rede isolada== e não tem efeito global.
+		- Ninguém fora de uma rede isolada pode enviar uma mensagem aos hospedeiros ligados a uma rede que usam esses endereços.
+	- **Endereço local de site** - 
+		- Usados se um site com várias redes que usam os protocolos da internet, mas não está conectado à internet.
+		- Usa o prfeixo `1111 1110 11`
+		- Ninguém fora de uma rede isolada pode enviar mensagens aos hospedeiros ligados a uma rede que usam esses endereços.
+
+```
+ENDEREÇO LOCAL DE LINK
+
++------------+---------------------------------------+----------------+
+|  8 bits    |              70 bits                  |   48 bits      |
+| 1111111010 |         Todos os valores 0            |   End. do Nó   |
++------------+---------------------------------------+----------------+
+```
+
+```
+ENDEREÇO LOCAL DE SITE
+
++------------+--------------------+---------------+-------------------+
+|  8 bits    |      38 bits       |   32 bits     |      48 bits      |
+| 1111111011 | Todos os valores 0 | End. sub-rede |    End. do Nó     |
++------------+--------------------+---------------+-------------------+
+```
+
+#### Endereços Multicast
+- Usados para definir um grupo de hospedeiros, em vez de apenas um.
+- Todos usam o prefixo `11111111` no primeiro campo.
+- O segundo campo é um flag que define o endereço de grupo como:
+	- **Permanente** - Definido pelas autoridades da Internet e pode ser acessado o tempo todo.
+	- **Transitório** - Usado apenas temporariamente - 
+		- ex.: uma radio que transmitirá para a internet usa flag para endereço temporario de multicast - quem desejar, se associa a esse grupo multicast e recebe uma cópia da programação da rádio.
+- O terceiro campo define o escopo do endereço de grupo.
+
+---
+### Protocolo de Controle da Internet
+- O IP precisa de protocolos de controle para operar na Internet.
+	- Ele é responsável por manter unida toda a internet, porém ele não consegue realizar sozinho todo o trabalho necessário.
+	- Para auxiá-lo foram desenvolvidos protocolos auxiliares na camada de rede, são os **protocolos de controle**.
+
+> *Relembrando*... A camada de Rede não envia informação diretamente pela rede física. A rede física não conhece a camada de rede - nada da camada de rede tem significado nenhum para a camada de enlace e transmissão. Porém o protocolo IP é fundamental para a transmissão de pacotes na internet, então precisamos ter um mapeamento do endereço da camada de rede com o endereço da camada de enlace. 
+> 
+> - Endereço da camada de rede: utilizado pela internet
+> - Endereço da camada de enlace: utilizado pela placa de rede
+
+#### ARP (Addres Resolution Protocol)
+
+> O Protocolo mapeia IP (rede) e MAC (enlace).
+
+- Na internet cada hospedeiro possui um ou mais endereços IP, porém eles *não podem ser usados diretamente* para o envio de informações pela rede física.
+  
+- O *adaptador de rede* trabalha com **endereços físicos** da camada de *enlace*.
+	- ==A camada de Enlace **não reconhece** endereços IP.==
+	- O ARP providencia a entrega **local**.
+
+- É necessário encontrar uma forma de *mapear* os endereços de rede nos endereços de enlace.
+
+- Para descobrir o endereço de enlace do destinatário é enviado um pacote por difusão perguntando: "**A quem pertence o endereço IP A.B.C.D?"
+- O hospedeiro destinatário responderá informando seu *endereço de enlace*.
+- O protocolo responsável por essa comunicação é o ARP (Address Resolution Protocol - RFC 826).
+
+##### EXEMPLO 1 - MESMA SUB-REDE
+<img src="https://www.researchgate.net/publication/321766678/figure/fig1/AS:571073150320640@1513165857362/Address-Resolution-Protocol-ARP-attack.png">
+
+- A máquina envia um ARP request informando seu endereço IP e endereço MAC origem, assim como o endereço IP com quem ela deseja se comunicar - por broadcast.
+- Os dispositivos que recebe e não possui o endereço IP solicitado pelo request apenas descarta a informação.
+- O dispositivo que recebe a informação e possui o endereço IP e MAC do emissor, envia uma mensagem de reply, informando seu endereço MAC.
+- O emissor então recebe a resposta, e usa as informações para meapar endereço MAC e IP do dispositivo que recebeu a solicitação.
+
+- **Otimizações**:
+	- Depois que uma máquina executa o ARP, ela armazena o resultado em **cache**.
+		- Evita a necessidade de novos mapeamentos se houverem vários pacotes a serem trocados.
+	- Em muitos casos, o destinatário precisará enviar uma resposta.
+		- Um novo mapeamento pode ser evitado fazendo com o que o destinatário inclua em sua *tabela* o mapeamento entre os endereços de rede e de enlace do transmissor.
+
+- **Observação**
+	- Se um hospedeiro precisar enviar dados para outro hospedeiro que se encontra em uma **sub-rede diferente**, este sistema de entrega direta não funcionará.
+	- Nesse caso, o hospedeiro transmissor precisará enviar seus dados para um [[Roteadores|roteador]], que deverá providenciar o encaminhamento do datagrama para a sub-rede do destinatário - com isso pode ser necessário que o protocolo ARP seja utilizado mais de uma vez ao longo do caminho.
+
+##### EXEMPLO 2 - DIFERENTES SUB-REDES
+- Através da **máscara de sub-rede** o protocolo consegue verificar se dois hospedeiros estão na mesma sub-rede - se for o caso, o envio pode acontecer diretamente, como no último exemplo.
+- Entretanto, no caso de *sub-redes diferentes* um ou mais roteadores estarão no meio do caminho - intermediador.
+
+- Supondo os seguintes dispositivos e seus endereços IP e MAC:
+```
+192.168.0.1 - 00:fa:b1:cc:23:41      10.0.0.1 - 00:fa:b1:cc:23:42
+.                       \             /
+.                        \           /
+[PC-1]                    \         /                             [PC-2]
+  |                         Roteador                                 |
+  +---------------------------(X)------------------------------------+
+
+192.168.0.12                                                    10.0.0.51
+00:13:45:98:da:a2                                       00:12:54:fd:ab:45
+```
+
+- Se o PC-1 deseja se comunicar com o PC-2, que está em outra sub-rede ele precisará enviar a informação pelo Roteador.
+- A camada de enlace deve se preocupar sempre com o próximo hospedeiro na rede - o roteador. Então os dados de enlace de destino são dados do próprio roteador.
+- Já a camda de rede diz quem é o próprio destino final em toda a rede (no caso o PC-2) - cada camada trabalha no seu nível.
+- Isso é encapsulado: `{ Enlace [ Rede ( Dados IP ) ] }
+  
+```
+Endereço IP:  192.168.0.12             PC-1           (IP)
+Máscara:      255.255.255.0            Sub-rede
+Roteador:     192.168.0.1              Roteador       (IP)
+Servidor DNS: 8.8.8.8                  DNS
+
++------------------------------[ENLACE]----------------------------------+
+|                                                                        |
+|  From: 00:13:45:98:da:a2                PC-1           (MAC)           |
+|  To: 00:fa:b1:cc:23:41                  Roteador       (MAC)           |
+|                                                                        |
++-------------------------------[REDE]-----------------------------------+
+|                                                                        |
+|  From: 192.168.0.13                     PC-1           (IP)            |
+|  To: 10.0.0.51                          PC-2           (IP)            |
+|                                                                        |
++------------------------------------------------------------------------+
+```
+
+- O roteador consultará quem possui o endereço IP de destino (segundo a informação recebida pelo PC-1): "Quem possui o endereço IP 10.0.0.51?"
+- O PC-2 responde, enviando seu endereço MAC.
+
+```
++------------------------------[ENLACE]----------------------------------+
+|                                                                        |
+|  From: 00:fa:b1:cc:23:42                Roteador       (MAC)           |
+|  To: 00:12:54:fd:ab:45                  PC-2           (MAC)           |
+|                                                                        |
++-------------------------------[REDE]-----------------------------------+
+|                                                                        |
+|  From: 192.168.0.13                     PC-1           (IP)            |
+|  To: 10.0.0.51                          PC-2           (IP)            |
+|                                                                        |
++------------------------------------------------------------------------+
+```
+
+#### DHCP (Dynamic Host Configuration Protocol)
+- Protocolo **orientado a estado**.
+
+> Servidores DHCP fornecem endereços IP aos hospedeiros da rede.
+
+- Para ter acesso à Internet um hospedeiro precisa ser configurado com alguns parâmetros mínimos:
+	- Endereço IP
+	- Máscara de sub-rede
+	- Endereço do gateway (roteador)
+	- Endereço do servidor DNS
+
+- Essas informações podem ser configuradas manualmente pelos administradores da rede, ou podem ser **obtidas automaticamente** - responsabilidade do DHCP (RFC 2131).
+
+- O administrador do sistema configura um servidor fornecendo um grupo de endereços IP.
+	- Sempre que um novo computador se conceta à rede, entra em contato com o servidor e solicita um endereço.
+	- O servidor opta por um dos endereços especificados pelo administrador e aloca tal endereço para o computador.
+
+- De modo geral o DHCP permite três tipos de atribuição de endereços:
+	- **Configuração manual** 
+		- O administrador especifica o endereço que cada hospedeiro receberá quando se concetar à rede.
+	- **Configuração automática**
+		- O administrador permite que um ==Servidor DHCP== atribua um endereço quando um hospedeiro se conectar pela primeira vez à rede.
+		- A partir desse momento este endereço estará reservado para este hospedeiro para sempre.
+	- **Configuração dinâmica** 
+		- O servidor =="empresta"== um endereço a um hospedeiro, por *tempo limitado* - determinado pelo administrador da rede.
+		- Quando o hospedeiro não estiver mais utilizando esse endereço, ele poderá ser alocado a outro hospedeiro.
+
+---
+##### ESTADOS DHCP
+- Um cliente começa no estado **==INIT==**;
+- O cliente entra em contato com todos os servidores DHCP difundindo uma mensagem DHCP **DISCOVER** - 255.255.255.255 (endereço de difusão local).
+	- Utiliza a porta 67 do protocolo UDP
+	- Após, ele passa para o estado **==SELECTING==**.
+
+- Os servidores recebem a mensagem e enviam uma mensagem DHCP **==OFFER==**
+	- As mensagens DHCP OFFER contém informações de configuração e o endereço IP oferecido pelo servidor - o cliente escolhe um entre os oferecidos no caso de mais de uma opção.
+
+- O cliente seleciona um dos servidores e envia uma mensagem DHCP **REQUEST** solicitando uma alocação.
+	- O cliente vai para o estado **==REQUESTING==**;
+
+- O servidor responde com a mensagem DHCP **ACK** - confirmação de uso.
+	- Da início à **alocação**
+	- O cliente segue para o estado **==BOUND==**, que é o estado normal de operação.
+		- Enquanto estiver no estado limite, ele poderá usar o endereço IP.
+
+- O cliente configura três **temporizadores** que controlam: **renovação**, **revinculação** e o **fim da alocação**.
+	- O valor padrão para o primeiro temporizador é a metade do valor do tempo total da alocação.
+	- Quando o temporizador ultrapassar o tempo determinado pela primeira vez, o cliente deverá tentar *renovar* a alocação.
+	- Para *solicitar uma renovação* o cliente transmite uma mensagem DHCP **REQUEST** ao servidor que lhe fez a alocação.
+	- O cliente muda para o estado **==RENEWING==** - renovação.
+		- Caso aprove a renovação, o servidor envia um DHCP **ACK**.
+			- O cliente retorna ao estado **==BOUND**==
+		- Se não aprovar a renovação, o servidor envia um DHCP **NACK**
+			- O cliente **interompe** imediatamente o uso do endereço.
+		- Retorna o endereço **INIT**.
+
+- Caso o cliente esteja no estado ==**RENEWING**== e não chegue nenhuma resposta, provavelmente o servidor que concedeu a alocação estará fora de alcance.
+  
+- Para contornar essa situação O DHCP conta com um **segundo temporizador**, que ==expira após 87,5% do período da alocação==.
+	- Faz com que o cliente muda para o estado **==REBINDING==** (VINCULA NOVAMENTE).
+	  
+- O cliente passa a difundir a mensagem DHCP **REQUEST** para qualquer servidor DHCP.
+- Caso receba uma *resposta positiva*, o cliente muda para o estado **==BOUND==** e reconfigura os temporizadores.
+- Se a *resposta for negativa*, o cliente muda para o estado **==INIT==** e interrompe imediatamente o uso do endereço IP.
+
+<img src="https://www.researchgate.net/publication/2786978/figure/fig4/AS:669496704503831@1536631861541/DHCP-client-state-diagram-for-DHCP-protocoll20.png" width="80%">
+
+---
+#### ICMP (Internet Control Message Protocol)
+- RFC 792
+
+- Durante o tráfego de informações pela rede **podem ocorrer erros ou situações anormais** que precisam ser do conhecimento dos hospedeiros.
+- Com o **ICMP**, hospedeiros conseguem enviar ==**mensagens de controle e erros**== para outros hospedeiros.
+- O erro sempre é reportado ao sistema que gerou o datagrama - baseado no campo IP origem do datagrama.
+
+- O ICMP também inclui um mecanismo de envio e resposta (**echo**) para testar quando um destino é alcançável ou não.
+	- O [[Basic Networking Commands|comando]] `ping` utiliza esse protocolo.
+
+- Uma mensagem ICMP é carregada dentro de um datagrama IP.
+
+- As mensagens ICMP mais importantes são:
+	- **Destination unreachable** - destino inalcançável
+		- O datagrama não pode ser entregue.
+		- A sub-rede ou roteador não pode localizar o destino, ou um datagrama com o bit DF (não fragmentado).
+	- **Time exceeded** - tempo excedido
+		- Campo "tempo de vida (TTL)" do IP chegou a zero.
+		- Houve um descarte do pacote devido ao contador ter sido zerado.
+	- **Parameter problem** - problema de parâmetro
+		- Campo de cabeçalho inválido.
+		- Indica a existência de um problema no software IP do *hospedeiro transmissor* ou no software de um *roteador* pelo qual o pacote transitou.
+	- **Source quench** - redução de origem
+		- Conhecida como pacote regulador.
+		- Usada para ajustar os hospedeiros que estejam enviando pacotes demais a fim de controlar o congestionamento na rede - controla a velocidade enviado uma solicitação ao hospedeiro.
+	- **Redirect** - Redirecionar
+		- Quando um roteador percebe que o pacote pode ter sido incorretamente roteado.
+		- É usado pelo roteador para informar ao hospedeiro transmissor a respeito do provável erro.
+		- É um caso mais raro de acontecer.
+	- **Echo request** - Solicitação de eco
+		- Perguntar a um hospedeiro se ele está ativo.
+		- Ao receber a mensagem "echo request", o destino deve enviar de volta uma mensagem "echo reply".
+		- `ping`
+	- **Echo reply** - Resposta de eco
+		- Confirmação de que o hospedeiro está ativo.
+	- **Timestamp request** - solicitação de carimbo de data e hora
+		- Mesmo que o "echo request", mas solicita que a hora da partida e chegada da mensagem sejam registrados na mensagem de resposta.
+	- **Timestamp reply** - resposta de carimbo de data e hora
+		- Resposta à mensagem "timestamp request"
+
+- Hoje em dia há protocolos mais atualizados - como o IMTP - que fazem melhor esta função.
 

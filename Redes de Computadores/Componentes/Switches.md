@@ -31,9 +31,9 @@ Quando um dispositivo envia dados, o switch verifica a tabela MAC para determina
 
 - Quando um dispositivo tenta se comunicar com outro (na mesma rede) ele envia um pacote ao Switch, com seu endereço MAC e o endereço MAC para qual dispositivo ele deseja enviar o pacote.
 
-| MAC ADDRESS | PORT |
-| ---- | ---- |
-| 1111.1111.1111 | F0 |
+| MAC ADDRESS    | PORT    |
+| -------------- | ------- |
+| 1111.1111.1111 | F0      |
 | 2222.2222.2222 | **???** |
 
 - O roteador recebe a informação, porém ele não tem informação salva na tabela sobre a porta que o receptor se encontra (para onde ele deve enviar o acote). Então ele envia cópias do pacote para todos as portas / devices. 
@@ -41,10 +41,10 @@ Quando um dispositivo envia dados, o switch verifica a tabela MAC para determina
 
 - Quando o dispositivo 2222.2222.2222 enviar uma mensagem pelo switch, o switch registrará na tabela suas informações.
 
-| MAC ADDRESS | PORT |
-| ---- | ---- |
-| 1111.1111.1111 | F0 |
-| 2222.2222.2222 | F1 |
+| MAC ADDRESS    | PORT |
+| -------------- | ---- |
+| 1111.1111.1111 | F0   |
+| 2222.2222.2222 | F1   |
 
 - Nas próximas conexões ele precisará apenas consultar a CAM Table para enviar os pacotes, já que ela já foi populada.
 
