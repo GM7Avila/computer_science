@@ -1,6 +1,6 @@
-# Binary Large Object
+# Binary Large Object (Git)
 
-> Os Blobs são fundamentais para o funcionamento interno do Git, pois permitem que ele armazene e rastrie as versões de cada arquivo em um projeto.
+> Os [[Blobs]] são fundamentais para o funcionamento interno do Git, pois permitem que ele armazene e rastrie as versões de cada arquivo em um projeto.
 > 
 > Quando revisamos o **histórico de commit**, estamos visualizando essencialmente uma **série de blobs** que representam o estado dos arquivos em cada *ponto de tempo*.
 

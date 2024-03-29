@@ -6,7 +6,7 @@
 > 
 > Cada ojbto é armazenado em um arquivo no diretório `.git/objects` do repositório Git. Os objetos são identificados por seus hashes SHA1, calculados com base no conteúdo do objeto, e usados para recuperar e referenciar objetos em operações Git.
 ### Git add
-1. Inicialmente faremos o `git add` de um repositório recém criado, com apenas um arquivo local `a.c` (untracked).
+1. Inicialmente faremos o `git add` de um repositório recém criado, com apenas um arquivo local `a.txt` (untracked).
 ```bash
 git add .
 ```
@@ -65,9 +65,9 @@ git add .
 - Cada objeto possui três campos:
 	- type - tipos do objeto
 		- [[Object - Blob|Blob]] 
-		- [[Object - Tree]] 
-		- Commit 
-		- Tag
+		- [[Object - Tree|Tree]] 
+		- [[Object - Commit|Commit]] 
+		- [[Object - Tag|Tag]]
 	- size - size of the contents
 	- content
 
@@ -91,7 +91,7 @@ $ git commit -m "first commit"
 
 [master (root-commit) ffc3f70] First commit
  1 file changed, 3 insertions(+)
- create mode 100644 a.c
+ create mode 100644 a.txt
 ```
 
 - O commit também gera um objeto com hash: `ffc37f70`
@@ -131,25 +131,25 @@ Date:   Thu Mar 28 12:47:32 2024 -0300
 - Internamente, o commit está ligado aos blobs através dos objetos tree:
 ```
 COMMIT                 TREE                    BLOB
-+--------------+       +----------------+      +------------+
-| commit ffc3f |       | tree f9bbb55   |      | blob a5517 |
-| First Commit |------>| blob a5517 a.c |----->| a.c        |
-+--------------+       +----------------+      +------------+
++--------------+       +------------------+      +------------+
+| commit ffc3f |       | tree f9bbb55     |      | blob a5517 |
+| First Commit |------>| blob a5517 a.txt |----->| a.txt      |
++--------------+       +------------------+      +------------+
 ```
 
 ---
 - **NOTE** - Se fosse o caso de ter feito o commit de mais de um arquivo, a tree em questão apontaria para dois blob diferentes:  
 ```
 COMMIT                 TREE                    BLOB
-+--------------+       +----------------+      +------------+
-| commit ffc3f |       | tree f9bbb55   |      | blob a5517 |
-| First Commit |------>| blob a5517 a.c |----->| a.c        |
-|              |       | blob 3c211 b.c |      +------------+  
-+--------------+       +--------+-------+      
++--------------+       +------------------+      +------------+
+| commit ffc3f |       | tree f9bbb55     |      | blob a5517 |
+| First Commit |------>| blob a5517 a.txt |----->| a.txt      |
+|              |       | blob 3c211 b.c   |      +------------+  
++--------------+       +--------+---------+      
 .                               |              BLOB
 .                               |              +------------+
 .                               +------------->| blob 3c211 |
-.                                              | b.c        |
+.                                              | b.txt      |
 .                                              +------------+
 ```
 ---
@@ -163,3 +163,52 @@ COMMIT                 TREE                    BLOB
 
 ---
 ### Fazendo um novo commit
+
+> Durante o git add é criado dois novos objetos: blob c33c6 e bloc b92c6.
+
+```
+  |
+  ├── objects
+  │   ├── a5
+  │   │   └── 517c7e85ee3f523636abbd3eb89157e34fa7ef
+  │   ├── f9
+  │   │   └── bbb55b6a5b01fc7f500557c407bc6c22d44ac0
+  │   ├── ff
+  │   │   └── c3f70ba3d750485607d1c621c094d76b20c21d
+  │   ├── c3
+  │   │   └── 3c6710201010cf99a010102931029309f010ac
+  │   ├── b9
+  │   │   └── 2c667103c1029f99192f92004940a019239101  
+  │   ├── info
+  │   └── pack
+  |
+```
+
+- Quando fazemos um novo commit, o commit recém criado apontará para o commit pai (`ffc3f`, no exemplo anterior - apenas `a.txt`), e se ligará a uma nova tree -`0136866`.
+	- Novo commit: `0d31a`; comment: "Novos Docs"
+- A árvore `0136866` aponta então para os dois novos arquivos adicionados nesse novo commit.
+
+![[_new-commit|100%]]
+
+- Assim a estrutura do diretório `.git` ao final das alterações, ficará assim:
+```
+  |
+  ├── objects
+  │   ├── a5
+  │   │   └── 517c7e85ee3f523636abbd3eb89157e34fa7ef  <-- blob 
+  │   ├── f9
+  │   │   └── bbb55b6a5b01fc7f500557c407bc6c22d44ac0  <-- tree
+  │   ├── ff
+  │   │   └── c3f70ba3d750485607d1c621c094d76b20c21d  <-- commit
+  │   ├── c3
+  │   │   └── 3c6710201010cf99a010102931029309f010ac  <-- blob
+  │   ├── b9
+  │   │   └── 2c667103c1029f99192f92004940a019239101  <-- blob
+  │   ├── 01
+  │   │   └── 368660201010c1231acc102931029309f010ac  <-- tree
+  │   ├── 0d
+  │   │   └── 31aa3221c1392f91192f96649ab0a01cd311ff  <-- commit
+  │   ├── info
+  │   └── pack
+  |
+```
