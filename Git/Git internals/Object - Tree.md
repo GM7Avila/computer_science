@@ -19,7 +19,10 @@ $ git ls-tree fb3a8bdd0ce
 100644 blob 289b046a443c0647624607d471289b2c7dcd470b    INSTALL
 100644 blob 4eb463797adc693dc168b926b6932ff53f17d0b1    Makefile
 100644 blob 548142c327a6790ff8821d67c2ee1eff7a656b52    README
-...
 ```
+
+- A tree faz referência aos diretórios em si, e aos arquivos presentes naquele diretório.
+	- Todas as pastas aparecem como árvores.
+	- Tdos os arquivos aparecem como blobs.
 
 > Um objeto referenciado por uma árvore pode ser um blob, representando o conteúdo de um arquivo, ou outra árvore, representando o conteúdo de um subdiretório. Como as árvores e os blobs, como todos os outros objetos, são nomeados pelo hash SHA1 de seu conteúdo, duas árvores têm o mesmo nome SHA1 se e somente se seu conteúdo (incluindo, recursivamente, o conteúdo de todos os subdiretórios) for idêntico. Isso permite que o git determine rapidamente as diferenças entre dois objetos de árvore relacionados, pois pode ignorar quaisquer entradas com nomes de objetos idênticos.
