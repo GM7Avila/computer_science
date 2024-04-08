@@ -72,6 +72,7 @@ Entretanto não é muito eficiente em termos de tempo de execução para listas 
 
 ## Insertion Sort 🃏
 - Ordenação de cartas.
+- Eficiente para order um ==número pequeno de elementos==.
 - Divide o array em dois - parte ordenada e parte não ordenada.
 - A ideia básica é percorrer o vetor de dados várias vezes, e em cada passagem, comparar um item com os itens que o precedem na lista. Se o item for menor do que o item anterior, troca-os de posição. O processo é repetido até que todo o vetor esteja ordenado.
 - A implementação do Insertion Sort começa com o primeiro item da lista considerado ordenado. O próximo item é então tomado e comparado com os itens que o precedem na lista. Se o item é maior do que o item anterior, ele é considerado em sua posição correta e o próximo item é tomado. Se o item é menor do que o item anterior, ele é movido para a posição correta na lista ordenada. Esse processo é repetido até que todos os itens tenham sido classificados.

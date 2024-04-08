@@ -13,15 +13,9 @@ A compreensão de algoritmos é essencial para a resolução de problemas comple
 
 Neste repositório, você encontrará anotações e materiais de estudo para algoritmos estudados em Algoritmos I e Algoritmos II, que incluem:
 
--   [[Algoritmos de Busca]]: busca linear, busca binária.
--   [[Algoritmos de Ordenação]]: bubble sort, selection sort, insertion sort, merge sort, quick sort.
--   Algoritmos de grafos: busca em largura, busca em profundidade, Dijkstra, Kruskal, Prim.
+-  [[Algoritmos de Busca Vetorial]]: busca linear, busca binária.
+-   [[Algoritmos de Ordenação Vetorial]]: bubble sort, selection sort, insertion sort, merge sort, quick sort.
+-   Algoritmos de grafos: [[01. Search|busca em largura]], [[01. Search|busca em profundidade]], [[3. Dijkstra|Dijkstra]], Kruskal, Prim.
 -   Algoritmos de árvores: árvore binária, árvore de busca binária, árvore rubro-negra, heap.
 -   Algoritmos de strings: força bruta, Boyer-Moore, KMP.
 -   Algoritmos de geometria: distância entre pontos, interseção de retas, fecho convexo.
-
-# Contribuições são sempre bem-vindas
-
-Contribuições são sempre bem-vindas para aprimorar o conteúdo deste repositório. Se você deseja adicionar um novo algoritmo, melhorar uma anotação existente ou corrigir um erro, sinta-se à vontade para fazer um fork deste repositório e enviar um pull request.
-
-O repositório de 'computer science' ainda está em construção, então novas anotações e algoritmos serão adicionados ao longo do tempo.

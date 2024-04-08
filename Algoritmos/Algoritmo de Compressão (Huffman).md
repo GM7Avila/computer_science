@@ -1,4 +1,4 @@
-# Algoritmo de Compressão de Dados (Huffman)
+# Algoritmo de Compressão de Dados (Huffman Code)
 
 ## 1. Conceito
 - Processo de compactação de dados **sem perda** de informação;

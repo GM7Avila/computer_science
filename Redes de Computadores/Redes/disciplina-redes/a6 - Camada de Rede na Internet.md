@@ -60,7 +60,7 @@
 - **Protocolo da camada superior** - Para qual ==protocolo de transporte== o datagrama deverá ser entregue; 
 	- Exemplo: 6 para TCP e 17 para UDP.
 - **Cheksum** - confere o cabeçalho para determinar se ocorreram erros durante sua transmissão - limitado apenas ao cabeçalho (não verifica os dados).
-- **ENDEREÇO IP ORIGEM E DESTINO** - [[04. Endereço IP|endereço IP]] de quem envia e de quem recebe.
+- **ENDEREÇO IP ORIGEM E DESTINO** - [[04. Endereço IPv4|endereço IP]] de quem envia e de quem recebe.
 - **Dados** - carrega os dados da [[a3.2 - Camada de Transporte|camada de transporte]]
 ### Fragmentação e Reconstrução do Datagrama IPv4
 - Nem todos os protocolos de camada de enlace podem transportar pacotes do mesmo tamanho.

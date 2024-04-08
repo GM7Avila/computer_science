@@ -45,8 +45,9 @@
 - **ALGORITMO DE DIJKSTRA (1959)**
 	- Cada roteador armazena sua menor distância até a origem e o caminho a ser seguido.
 	- Na inicialização do algoritmo não existe caminho conhecido
-		- A distância é marcada como *inifinito*
+		- A distância é marcada como *inifinito* (desconhecido);
 	- Conforme o algoritmo progride, os caminhos e seus custos são encontrados.
 	- Ao final para obter a árvore de escoamento basta seguir o caminho por cada roteador até seu vizinho de menor custo.
 
 ![[3. Dijkstra|100%]]
+

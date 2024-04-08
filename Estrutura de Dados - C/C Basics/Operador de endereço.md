@@ -12,17 +12,15 @@ Existem dois tipos principais de operadores de endereço em C e C++:
     
     Nesse exemplo, `&x` retorna o endereço de memória da variável `x`, que é atribuído ao ponteiro `ptr`.
     
-2.  O operador de desreferência unário `*`: esse operador é usado para acessar o valor armazenado no endereço de memória apontado por um ponteiro. Por exemplo, se `ptr` é um ponteiro do tipo `int` que aponta para a variável `x`, então `*ptr` retorna o valor armazenado na variável `x`. A sintaxe para usar o operador de desreferência é a seguinte:
-    
-    ```C
-	int x = 10; 
-	int *ptr = &x; 
-	int valor = *ptr;`
-	```
-    
-    Nesse exemplo, `*ptr` retorna o valor armazenado na variável `x`, que é atribuído à variável `valor`.
-    
-Os operadores de endereço são muito úteis em programação, especialmente quando trabalhamos com estruturas de dados complexas, como matrizes, listas encadeadas e árvores. Eles permitem que criemos ponteiros para variáveis e objetos e acessemos seus valores e estruturas de forma eficiente e flexível.
+2. Operador de desreferência unário `*`: esse operador é usado para ==acessar o valor armazenado no endereço de memória apontado por um ponteiro==. Por exemplo, se `ptr` é um ponteiro `int` que aponta para a variável `x`, então `*ptr` retorna o valor armazenado na variável `x`. A sintaxe para usar o operador de desreferência é a seguinte:
+
+```C
+int x = 10; 
+int *ptr = &x; 
+int valor = *ptr;`
+```
+   
+Nesse exemplo, `*ptr` retorna o valor armazenado na variável `x`, que é atribuído à variável `valor`.
 
 ---
 
